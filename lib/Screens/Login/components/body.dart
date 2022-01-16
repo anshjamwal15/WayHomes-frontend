@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dumper/Screens/Home/landing_page.dart';
-import 'package:dumper/Screens/Signup/components/user_model.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
@@ -44,7 +43,6 @@ class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  Future<UserModel>? _futureBody;
   bool _isHidden = true;
   bool login = true;
 
