@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 class SocialIcon extends StatelessWidget {
   final String iconSrc;
   final Function()? press;
+
   const SocialIcon({
     Key? key,
     required this.iconSrc,
