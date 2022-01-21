@@ -4,12 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class SocialIcon extends StatelessWidget {
   final String iconSrc;
-  final Function()? press;
+  final Function() press;
 
   const SocialIcon({
-    Key? key,
-    required this.iconSrc,
-    required this.press,
+    Key key,
+    this.iconSrc,
+    this.press,
   }) : super(key: key);
 
   @override
@@ -17,8 +17,8 @@ class SocialIcon extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
-        padding: EdgeInsets.all(20),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           border: Border.all(
             width: 2,

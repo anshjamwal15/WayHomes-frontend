@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
@@ -13,13 +12,13 @@ import 'package:http/http.dart' as http;
 import '../../../main.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
 
   @override
   _BodyState createState() => _BodyState();
 }
 
-Future<String?> createUser(
+Future<String> createUser(
     String username, String email, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signup'),
@@ -143,7 +142,7 @@ class _BodyState extends State<Body> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
+                          builder: (context) => const LoginScreen(),
                         ),
                       );
                     }
@@ -176,7 +175,7 @@ class _BodyState extends State<Body> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return LoginScreen();
+                          return const LoginScreen();
                         },
                       ),
                     );

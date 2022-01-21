@@ -2,7 +2,7 @@ import 'package:dumper/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key? key}) : super(key: key);
+  const CustomAppBar({Key key}) : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
@@ -18,7 +18,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         right: appPadding,
         top: appPadding * 2,
       ),
-      child: Container(
+      child: SizedBox(
         height: size.height * 0.22,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,11 +31,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   height: 50,
                   width: 50,
                   decoration: BoxDecoration(
-                      border: Border.all(color: black.withOpacity(0.4)),
+                      border: Border.all(color: kPrimaryColor.withOpacity(0.4)),
                       borderRadius: BorderRadius.circular(15)),
-                  child: const Icon(
-                    (Icons.sort_rounded),
-                    color: kPrimaryColor,
+                  child: IconButton(
+                    icon: const Icon(Icons.sort_rounded),
+                    color: kPrimaryColor, onPressed: () { Scaffold.of(context).openDrawer(); },
                   ),
                 ),
                 Container(

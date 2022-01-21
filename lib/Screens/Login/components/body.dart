@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  const Body({Key key}) : super(key: key);
 
   @override
   _BodyState createState() => _BodyState();
@@ -24,7 +24,7 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
-Future<String?> attemptLogIn(String username, String password) async {
+Future<String> attemptLogIn(String username, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signin'),
     body: jsonEncode(<String, String>{

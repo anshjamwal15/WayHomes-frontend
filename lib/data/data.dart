@@ -114,7 +114,6 @@ final List<House> houseList = [
 ];
 
 List<String> categoryList = [
-  '<\₹220000',
   'For Sale',
   '3-4 bed room',
   'Garages',

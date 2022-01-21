@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class Body extends StatelessWidget {
+  const Body({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -14,7 +16,7 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "Welcome To Dumper",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -25,12 +27,12 @@ class Body extends StatelessWidget {
             ),
             SizedBox(height: size.height * 0.03),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               width: size.width * 0.6,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(29),
                 child: ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     "SIGN IN",
                     style: TextStyle(color: Colors.white),
                   ),
@@ -39,15 +41,15 @@ class Body extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return LoginScreen();
+                          return const LoginScreen();
                         },
                       ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: kPrimaryColor,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                    textStyle: TextStyle(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                    textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -57,12 +59,12 @@ class Body extends StatelessWidget {
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 20),
+              margin: const EdgeInsets.symmetric(vertical: 20),
               width: size.width * 0.6,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(29),
                 child: ElevatedButton(
-                  child: Text(
+                  child: const Text(
                     "SIGN UP",
                     style: TextStyle(color: kPrimaryColor),
                   ),
@@ -71,15 +73,15 @@ class Body extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SignUpScreen();
+                          return const SignUpScreen();
                         },
                       ),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     primary: kPrimaryLightColor,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                    textStyle: TextStyle(
+                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                    textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

@@ -2,7 +2,7 @@ import 'package:dumper/constants.dart';
 import 'package:flutter/material.dart';
 
 class BottomButtons extends StatelessWidget {
-  const BottomButtons({Key? key}) : super(key: key);
+  const BottomButtons({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

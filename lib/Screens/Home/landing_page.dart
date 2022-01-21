@@ -3,7 +3,7 @@ import 'package:dumper/components/loading_circle.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({Key key}) : super(key: key);
 
   @override
   _LandingPageState createState() => _LandingPageState();
