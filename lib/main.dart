@@ -1,5 +1,5 @@
 import 'package:dumper/Screens/Welcome/welcome_screen.dart';
-import 'package:dumper/constants.dart';
+import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 const SERVER_IP = 'http://192.168.0.126:8080';

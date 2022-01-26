@@ -1,4 +1,4 @@
-import 'package:dumper/constants.dart';
+import 'package:dumper/constants/constants.dart';
 import 'package:dumper/model/house.dart';
 import 'package:flutter/material.dart';
 

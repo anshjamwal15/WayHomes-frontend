@@ -1,6 +1,6 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Welcome/welcome_screen.dart';
-import 'package:dumper/constants.dart';
+import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {

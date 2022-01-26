@@ -1,7 +1,7 @@
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
-import 'package:dumper/constants.dart';
+import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

@@ -1,7 +1,7 @@
 import 'package:dumper/data/data.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 
 class Categories extends StatefulWidget {
   const Categories({Key key}) : super(key: key);

@@ -4,7 +4,7 @@ import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
