@@ -7,11 +7,12 @@ class NavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   const NavigationDrawerWidget({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     const name = 'User Six';
     const email = 'UserSix@gmail.com';
-    var urlImage =  "assets/icons/user.svg";
+    var urlImage = "assets/icons/user.svg";
 
     return Drawer(
       child: Material(
@@ -87,7 +88,9 @@ class NavigationDrawerWidget extends StatelessWidget {
           padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
-              const CircleAvatar(radius: 30, backgroundImage: AssetImage("assets/images/user.jpg")),
+              const CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage("assets/images/user.jpg")),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

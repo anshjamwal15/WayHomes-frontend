@@ -48,7 +48,8 @@ class Body extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     primary: kPrimaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -80,7 +81,8 @@ class Body extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     primary: kPrimaryLightColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,

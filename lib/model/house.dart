@@ -12,16 +12,16 @@ class House {
   bool isFav;
 
   House({
-     this.imageUrl,
-     this.address,
-     this.description,
-     this.price,
-     this.bathRooms,
-     this.bedRooms,
-     this.sqFeet,
-     this.garages,
-     this.time,
-     this.moreImagesUrl,
-     this.isFav,
+    this.imageUrl,
+    this.address,
+    this.description,
+    this.price,
+    this.bathRooms,
+    this.bedRooms,
+    this.sqFeet,
+    this.garages,
+    this.time,
+    this.moreImagesUrl,
+    this.isFav,
   });
 }

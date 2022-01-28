@@ -35,7 +35,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       borderRadius: BorderRadius.circular(15)),
                   child: IconButton(
                     icon: const Icon(Icons.sort_rounded),
-                    color: kPrimaryColor, onPressed: () { Scaffold.of(context).openDrawer(); },
+                    color: kPrimaryColor,
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
                   ),
                 ),
                 Container(

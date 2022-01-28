@@ -4,6 +4,7 @@ import '../../../constants/constants.dart';
 
 class BottomButtons extends StatelessWidget {
   const BottomButtons({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

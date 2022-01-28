@@ -6,9 +6,8 @@ import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/data.dart';
 import 'package:dumper/model/house.dart';
 import 'package:dumper/model/property_model.dart';
-import 'package:dumper/services/api_manager.dart';
+import 'package:dumper/services/service_api.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class Houses extends StatefulWidget {
   const Houses({Key key}) : super(key: key);
@@ -18,13 +17,12 @@ class Houses extends StatefulWidget {
 }
 
 class _HousesState extends State<Houses> {
-
   Future<PropertyModel> _propertyModel;
 
   @override
   void initState() {
     super.initState();
-    _propertyModel = API_Manager().getProperties();
+    _propertyModel = PropertyService().getProperty();
   }
 
   @override
@@ -35,12 +33,12 @@ class _HousesState extends State<Houses> {
       child: FutureBuilder<PropertyModel>(
         future: _propertyModel,
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
+          if (snapshot.hasData) {
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: snapshot.data.propertyImages.length,
+              itemCount: snapshot.data.content.length,
               itemBuilder: (context, index) {
-                var image = snapshot.data.propertyImages[index];
+                // var image = snapshot.data.content[0].propertyImages[0].path;
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -62,12 +60,12 @@ class _HousesState extends State<Houses> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                  // height: 180,
-                                  // width: size.width,
-                                  // fit: BoxFit.cover,
-                                  // image: image.path,
-                                  image.path
+                                child: Image(
+                                  height: 180,
+                                  width: size.width,
+                                  fit: BoxFit.cover,
+                                  image: const NetworkImage(
+                                      "https://www.commercialproperty.review/wp-content/uploads/2020/08/ATS-Greens-Village-Aparments-Sector-93-Noida.jpg"),
                                 ),
                               ),
                               Positioned(
@@ -81,13 +79,13 @@ class _HousesState extends State<Houses> {
                                   child: IconButton(
                                     icon: house.isFav
                                         ? const Icon(
-                                      Icons.favorite_rounded,
-                                      color: kPrimaryColor,
-                                    )
+                                            Icons.favorite_rounded,
+                                            color: kPrimaryColor,
+                                          )
                                         : const Icon(
-                                      Icons.favorite_border_rounded,
-                                      color: kPrimaryColor,
-                                    ),
+                                            Icons.favorite_border_rounded,
+                                            color: kPrimaryColor,
+                                          ),
                                     onPressed: () {
                                       setState(() {
                                         house.isFav = !house.isFav;
@@ -101,7 +99,7 @@ class _HousesState extends State<Houses> {
                           Row(
                             children: [
                               Text(
-                                '\₹${snapshot.data.price.toStringAsFixed(4)}',
+                                '\₹${snapshot.data.content[0].price.toStringAsFixed(4)}',
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -112,10 +110,11 @@ class _HousesState extends State<Houses> {
                               ),
                               Expanded(
                                 child: Text(
-                                  snapshot.data.description,
+                                  snapshot.data.content[1].description,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontSize: 15, color: black.withOpacity(0.4)),
+                                      fontSize: 15,
+                                      color: black.withOpacity(0.4)),
                                 ),
                               ),
                             ],
@@ -123,21 +122,21 @@ class _HousesState extends State<Houses> {
                           Row(
                             children: [
                               Text(
-                                '${snapshot.data.bedrooms} bedrooms / ',
+                                '${snapshot.data.content[0].bedrooms} bedrooms / ',
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
-                                ' ${snapshot.data.bathrooms} bathrooms / ',
+                                ' ${snapshot.data.content[0].bathrooms} bathrooms / ',
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
-                                ' ${snapshot.data.sqFeet} sqft  ',
+                                ' ${snapshot.data.content[0].sqFeet} sqft  ',
                                 style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
