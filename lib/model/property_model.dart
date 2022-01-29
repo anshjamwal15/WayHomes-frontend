@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final propertyModel = propertyModelFromJson(jsonString);
-
 import 'dart:convert';
 
 PropertyModel propertyModelFromJson(String str) =>

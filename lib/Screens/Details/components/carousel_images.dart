@@ -3,7 +3,9 @@ import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class CarouselImages extends StatefulWidget {
-  final List<String> imagesListUrl;
+  List<String> imagesListUrl = [
+    "https://www.commercialproperty.review/wp-content/uploads/2020/08/ATS-Greens-Village-Aparments-Sector-93-Noida.jpg"
+  ];
 
   CarouselImages(this.imagesListUrl);
 
@@ -25,23 +27,23 @@ class _CarouselImagesState extends State<CarouselImages> {
         dotColor: white,
         autoplay: false,
         images: [
-          AssetImage(
+          NetworkImage(
             widget.imagesListUrl[0],
           ),
-          AssetImage(
-            widget.imagesListUrl[1],
+          NetworkImage(
+            widget.imagesListUrl[0],
           ),
-          AssetImage(
-            widget.imagesListUrl[2],
+          NetworkImage(
+            widget.imagesListUrl[0],
           ),
-          AssetImage(
-            widget.imagesListUrl[3],
+          NetworkImage(
+            widget.imagesListUrl[0],
           ),
-          AssetImage(
-            widget.imagesListUrl[4],
+          NetworkImage(
+            widget.imagesListUrl[0],
           ),
-          AssetImage(
-            widget.imagesListUrl[5],
+          NetworkImage(
+            widget.imagesListUrl[0],
           ),
         ],
       ),
