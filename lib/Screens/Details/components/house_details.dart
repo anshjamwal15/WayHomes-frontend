@@ -14,6 +14,7 @@ class HouseDetails extends StatefulWidget {
 }
 
 class _HouseDetailsState extends State<HouseDetails> {
+
   bool isLoading = false;
 
   SingleProperty singleProperty;
