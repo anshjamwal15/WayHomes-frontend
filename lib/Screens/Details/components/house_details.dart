@@ -1,11 +1,13 @@
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/model/property_model.dart';
 import 'package:dumper/model/single_property.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class HouseDetails extends StatefulWidget {
-  const HouseDetails({Key key}) : super(key: key);
+  const HouseDetails({Key key, this.houses}) : super(key: key);
+
+  final Content houses;
 
   @override
   _HouseDetailsState createState() => _HouseDetailsState();
@@ -23,7 +25,6 @@ class _HouseDetailsState extends State<HouseDetails> {
   }
 
   Future<String> getData() async {
-
     setState(() {
       isLoading = false;
     });
@@ -70,7 +71,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '\₹${singleProperty.price.toString()}',
+                            '\₹${widget.houses.price.toString()}',
                             style: const TextStyle(
                               fontSize: 28,
                               fontWeight: FontWeight.bold,
@@ -80,7 +81,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                             height: 5,
                           ),
                           Text(
-                            singleProperty.address,
+                            widget.houses.address,
                             style: TextStyle(
                               fontSize: 15,
                               color: black.withOpacity(0.4),
@@ -136,7 +137,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                singleProperty.sqFeet.toString(),
+                                widget.houses.sqFeet.toString(),
                                 style: const TextStyle(
                                   color: black,
                                   fontSize: 20,
@@ -176,7 +177,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                singleProperty.bedrooms.toString(),
+                                widget.houses.bedrooms.toString(),
                                 style: const TextStyle(
                                   color: black,
                                   fontSize: 20,
@@ -216,7 +217,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                singleProperty.bathrooms.toString(),
+                                widget.houses.bathrooms.toString(),
                                 style: const TextStyle(
                                   color: black,
                                   fontSize: 20,
@@ -256,7 +257,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                singleProperty.garages.toString(),
+                                widget.houses.garages.toString(),
                                 style: const TextStyle(
                                   color: black,
                                   fontSize: 20,
@@ -288,7 +289,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     bottom: appPadding * 4,
                   ),
                   child: Text(
-                    singleProperty.description,
+                    widget.houses.description,
                     style: TextStyle(
                       color: black.withOpacity(0.4),
                       height: 1.5,

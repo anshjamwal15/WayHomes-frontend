@@ -1,12 +1,11 @@
-import 'dart:convert';
 
-import 'package:http/http.dart' as http;
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/data.dart';
 import 'package:dumper/model/house.dart';
 import 'package:dumper/model/property_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Houses extends StatefulWidget {
   const Houses({Key key}) : super(key: key);
@@ -65,7 +64,9 @@ class _HousesState extends State<Houses> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => const DetailsScreen(),
+                      builder: (_) => DetailsScreen(
+                        house: _property[index],
+                      ),
                     ),
                   );
                 },

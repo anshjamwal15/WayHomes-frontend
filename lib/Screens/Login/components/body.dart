@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
