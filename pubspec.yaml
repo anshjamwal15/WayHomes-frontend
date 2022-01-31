@@ -39,6 +39,7 @@ dependencies:
   flare_flutter: ^3.0.2
   carousel_pro: ^1.0.0
   url_launcher: ^6.0.18
+  shared_preferences: ^2.0.12
 
 dev_dependencies:
   flutter_test:

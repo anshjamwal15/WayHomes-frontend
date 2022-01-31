@@ -9,6 +9,7 @@ import 'package:dumper/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -46,6 +47,11 @@ class _BodyState extends State<Body> {
 
   bool _isHidden = true;
   bool login = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +138,12 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    var jwt = await attemptLogIn(username, password);
-                    if (jwt != null) {
-                      Navigator.push(
+                    var body = await attemptLogIn(username, password);
+                    if (body != null) {
+                      final SharedPreferences storage =
+                          await SharedPreferences.getInstance();
+                      storage.setString('email', username);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const LandingPage(),

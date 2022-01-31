@@ -9,7 +9,7 @@ class Utils {
   void openWhatsapp() async {
     var whatsapp = "Your number";
     var whatsappUrl_android =
-        "whatsapp://send?phone="+whatsapp+"&text=$message";
+        "whatsapp://send?phone=" + whatsapp + "&text=$message";
     var whatsappUrl_ios = "https://wa.me/$whatsapp?text=${Uri.parse(message)}";
     if (Platform.isIOS) {
       if (await canLaunch(whatsappUrl_ios)) {

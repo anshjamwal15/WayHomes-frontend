@@ -1,4 +1,4 @@
-import 'package:dumper/Screens/Welcome/welcome_screen.dart';
+import 'package:dumper/Screens/Welcome/splash_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Dumper',
       theme: ThemeData(
           primaryColor: kPrimaryColor, scaffoldBackgroundColor: Colors.white),
-      home: WelcomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

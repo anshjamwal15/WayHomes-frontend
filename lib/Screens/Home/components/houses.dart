@@ -1,4 +1,3 @@
-
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/data.dart';

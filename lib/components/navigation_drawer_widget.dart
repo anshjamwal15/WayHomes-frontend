@@ -1,18 +1,30 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
+import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Welcome/welcome_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class NavigationDrawerWidget extends StatefulWidget {
+  const NavigationDrawerWidget({Key key}) : super(key: key);
+
+  @override
+  _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
+}
+
+class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
-  const NavigationDrawerWidget({Key key}) : super(key: key);
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     const name = 'User Six';
     const email = 'UserSix@gmail.com';
-    var urlImage = "assets/icons/user.svg";
+    // var urlImage = "assets/icons/login.svg";
 
     return Drawer(
       child: Material(
@@ -20,7 +32,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             buildHeader(
-              urlImage: urlImage,
+              // urlImage: urlImage,
               name: name,
               email: email,
               onClicked: () => Navigator.of(context).push(
@@ -65,7 +77,17 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () => selectedItem(context, 5),
+                    onClicked: () async {
+                      final SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      preferences.remove('email');
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -89,8 +111,9 @@ class NavigationDrawerWidget extends StatelessWidget {
           child: Row(
             children: [
               const CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage("assets/images/user.jpg")),
+                radius: 30,
+                // backgroundImage: AssetImage("assets/icons/login.svg"),
+              ),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
