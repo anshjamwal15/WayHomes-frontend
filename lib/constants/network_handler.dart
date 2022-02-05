@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dumper/main.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -12,5 +14,9 @@ class NetworkHandler {
   NetworkImage getImage(String imgUrl) {
     String url = formater(imgUrl);
     return NetworkImage(url);
+  }
+
+  Image imageFromBase64String(String base64String) {
+    return Image.memory(base64Decode(base64String));
   }
 }

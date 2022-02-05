@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/data.dart';
@@ -38,6 +40,10 @@ class _HousesState extends State<Houses> {
     } else {
       return false;
     }
+  }
+
+  showImage(String image) {
+    return Image.memory(base64Decode(image));
   }
 
   @override
@@ -81,12 +87,10 @@ class _HousesState extends State<Houses> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(20),
-                              child: Image(
-                                height: 180,
-                                width: size.width,
-                                fit: BoxFit.cover,
-                                image: const NetworkImage(
-                                    "https://www.commercialproperty.review/wp-content/uploads/2020/08/ATS-Greens-Village-Aparments-Sector-93-Noida.jpg"),
+                              child: Container(
+                                child: showImage(data.propertyImages[index].data),
+                                // height: 180,
+                                // width: size.width,
                               ),
                             ),
                             Positioned(

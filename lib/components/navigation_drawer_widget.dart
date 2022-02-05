@@ -1,6 +1,6 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
-import 'package:dumper/Screens/Welcome/welcome_screen.dart';
+import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,7 +36,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               name: name,
               email: email,
               onClicked: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
               ),
             ),
             const Divider(color: Colors.white70),

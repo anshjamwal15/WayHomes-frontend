@@ -30,7 +30,7 @@ class _HouseDetailsState extends State<HouseDetails> {
     });
 
     final Uri url =
-        Uri.parse("http://192.168.0.126:8080/api/auth/property/136");
+        Uri.parse("http://192.168.0.126:8080/api/auth/property/"+widget.houses.id.toString());
 
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});

@@ -15,9 +15,6 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  List<String> imgs = [
-    "https://www.commercialproperty.review/wp-content/uploads/2020/08/ATS-Greens-Village-Aparments-Sector-93-Noida.jpg"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             children: [
               Stack(
                 children: [
-                  CarouselImages(imgs),
+                  CarouselImages(house: widget.house),
                   const CustomAppBar(),
                 ],
               ),
