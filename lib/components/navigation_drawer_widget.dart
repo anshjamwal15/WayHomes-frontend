@@ -1,7 +1,10 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
+import 'package:dumper/blocs/profile_bloc.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/model/profile_model.dart';
+import 'package:dumper/networking/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,11 +16,16 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
+  ApiResponse<Profile> _profile;
+
+  ProfileBloc _profileBloc;
+
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   @override
   void initState() {
     super.initState();
+    _profileBloc = ProfileBloc(1);
   }
 
   @override
@@ -25,75 +33,78 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     const name = 'User Six';
     const email = 'UserSix@gmail.com';
     // var urlImage = "assets/icons/login.svg";
-
     return Drawer(
-      child: Material(
-        color: sPrimaryColor,
-        child: ListView(
-          children: <Widget>[
-            buildHeader(
-              // urlImage: urlImage,
-              name: name,
-              email: email,
-              onClicked: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
-              ),
-            ),
-            const Divider(color: Colors.white70),
-            Container(
-              padding: padding,
-              child: Column(
-                children: [
-                  buildMenuItem(
-                    text: 'Home',
-                    icon: Icons.house,
-                    onClicked: () => selectedItem(context, 0),
+      child: StreamBuilder<ApiResponse<Profile>>(
+        stream: _profileBloc.profileDetailStream,
+        builder: (context, snapshot) {
+          return Drawer(
+            child: Material(
+              color: sPrimaryColor,
+              child: ListView(
+                children: <Widget>[
+                  buildHeader(
+                    urlImage: image,
+                    name: snapshot.data.data.username,
+                    email: snapshot.data.data.email,
                   ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Favourites',
-                    icon: Icons.favorite_border_rounded,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Explore Localities',
-                    icon: Icons.account_balance_sharp,
-                    onClicked: () => selectedItem(context, 2),
-                  ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Updates',
-                    icon: Icons.update,
-                    onClicked: () => selectedItem(context, 3),
-                  ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Settings',
-                    icon: Icons.settings,
-                    onClicked: () => selectedItem(context, 4),
-                  ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'Logout',
-                    icon: Icons.logout,
-                    onClicked: () async {
-                      final SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      preferences.remove('email');
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
+                  const Divider(color: Colors.white70),
+                  Container(
+                    padding: padding,
+                    child: Column(
+                      children: [
+                        buildMenuItem(
+                          text: 'Home',
+                          icon: Icons.house,
+                          onClicked: () => selectedItem(context, 0),
                         ),
-                      );
-                    },
+                        const SizedBox(height: 16),
+                        buildMenuItem(
+                          text: 'Favourites',
+                          icon: Icons.favorite_border_rounded,
+                          onClicked: () => selectedItem(context, 1),
+                        ),
+                        const SizedBox(height: 16),
+                        buildMenuItem(
+                          text: 'Explore Localities',
+                          icon: Icons.account_balance_sharp,
+                          onClicked: () => selectedItem(context, 2),
+                        ),
+                        const SizedBox(height: 16),
+                        buildMenuItem(
+                          text: 'Updates',
+                          icon: Icons.update,
+                          onClicked: () => selectedItem(context, 3),
+                        ),
+                        const SizedBox(height: 16),
+                        buildMenuItem(
+                          text: 'Settings',
+                          icon: Icons.settings,
+                          onClicked: () => selectedItem(context, 4),
+                        ),
+                        const SizedBox(height: 16),
+                        buildMenuItem(
+                          text: 'Logout',
+                          icon: Icons.logout,
+                          onClicked: () async {
+                            final SharedPreferences preferences =
+                                await SharedPreferences.getInstance();
+                            preferences.remove('email');
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -105,14 +116,13 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     VoidCallback onClicked,
   }) =>
       InkWell(
-        onTap: onClicked,
         child: Container(
           padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
               const CircleAvatar(
                 radius: 30,
-                // backgroundImage: AssetImage("assets/icons/login.svg"),
+                backgroundImage: NetworkImage(image),
               ),
               const SizedBox(width: 20),
               Column(
@@ -130,10 +140,18 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                 ],
               ),
               const Spacer(),
-              const CircleAvatar(
-                radius: 24,
-                backgroundColor: kPrimaryColor,
-                child: Icon(Icons.add_comment_outlined, color: Colors.white),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (context) => const EditProfilePage()),
+                  );
+                },
+                child: const CircleAvatar(
+                  radius: 24,
+                  backgroundColor: kPrimaryColor,
+                  child: Icon(Icons.edit, color: Colors.white),
+                ),
               )
             ],
           ),

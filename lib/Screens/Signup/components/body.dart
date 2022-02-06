@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
+import 'package:dumper/blocs/user_signup_bloc.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -16,24 +17,6 @@ class Body extends StatefulWidget {
 
   @override
   _BodyState createState() => _BodyState();
-}
-
-Future<String> createUser(
-    String username, String email, String password) async {
-  final response = await http.post(
-    Uri.parse('$SERVER_IP/api/auth/signup'),
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'email': email,
-      'password': password,
-    }),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-
-  if (response.statusCode == 200) return response.body;
-  return null;
 }
 
 class _BodyState extends State<Body> {
@@ -137,8 +120,9 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    var jwt = await createUser(username, email, password);
-                    if (jwt != null) {
+                    Map<String, String> data = {"username": username, "email": email,"password": password};
+                    var body = UserSignUpBloc(data);
+                    if (body != null) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(

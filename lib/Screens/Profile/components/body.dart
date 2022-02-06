@@ -19,11 +19,10 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: GlobalAppBar(),
+      appBar: const GlobalAppBar(),
       body: Container(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: appPadding,
           top: 10,
           right: appPadding,
@@ -32,11 +31,11 @@ class _BodyState extends State<Body> {
           onTap: () {},
           child: ListView(
             children: [
-              Text(
+              const Text(
                 "Edit Profile",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Center(
@@ -57,7 +56,7 @@ class _BodyState extends State<Body> {
                             ),
                           ],
                           shape: BoxShape.circle,
-                          image: DecorationImage(
+                          image: const DecorationImage(
                             fit: BoxFit.cover,
                             image: NetworkImage(image),
                           )),
@@ -76,7 +75,7 @@ class _BodyState extends State<Body> {
                           ),
                           color: kPrimaryColor,
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons.edit,
                           color: Colors.white,
                         ),
@@ -85,13 +84,13 @@ class _BodyState extends State<Body> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               buildTextField("Username", "Username", false),
               buildTextField("E-mail", "E-mail", false),
               buildTextField("Password", "Password", true),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Row(
@@ -100,12 +99,12 @@ class _BodyState extends State<Body> {
                   OutlinedButton(
                     onPressed: () {},
                     style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "CANCEL",
                       style: TextStyle(
                         fontSize: 14,
@@ -118,13 +117,13 @@ class _BodyState extends State<Body> {
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       primary: kPrimaryColor,
-                      padding: EdgeInsets.symmetric(horizontal: 50),
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
                       elevation: 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "SAVE",
                       style: TextStyle(
                         fontSize: 14,
@@ -150,11 +149,11 @@ class _BodyState extends State<Body> {
         cursorColor: kPrimaryColor,
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
-          enabledBorder: UnderlineInputBorder(
+          enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
             color: kPrimaryLightColor,
           )),
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
             color: kPrimaryColor,
           )),
@@ -171,16 +170,16 @@ class _BodyState extends State<Body> {
                   ),
                 )
               : null,
-          contentPadding: EdgeInsets.only(bottom: 3),
+          contentPadding: const EdgeInsets.only(bottom: 3),
           labelText: labelText,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: placeHolder,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.normal,
             color: Colors.grey,

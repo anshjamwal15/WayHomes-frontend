@@ -22,7 +22,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
         right: appPadding,
         top: appPadding,
       ),
-      child: Container(
+      child: SizedBox(
         height: size.height * 0.1,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

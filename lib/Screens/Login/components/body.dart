@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
+import 'package:dumper/blocs/user_login_bloc.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
@@ -26,25 +27,11 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
-Future<String> attemptLogIn(String username, String password) async {
-  final response = await http.post(
-    Uri.parse('$SERVER_IP/api/auth/signin'),
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'password': password,
-    }),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-  if (response.statusCode == 200) return response.body;
-  return null;
-}
 
 class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  
   bool _isHidden = true;
   bool login = true;
 
@@ -138,7 +125,8 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    var body = await attemptLogIn(username, password);
+                    Map<String, String> data = {"username": username, "password": password};
+                    var body = UserLoginBloc(data);
                     if (body != null) {
                       final SharedPreferences storage =
                           await SharedPreferences.getInstance();
