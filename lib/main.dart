@@ -2,7 +2,7 @@ import 'package:dumper/Screens/Welcome/splash_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
-const SERVER_IP = 'http://192.168.0.126:8080';
+const SERVER_IP = 'http://localhost:8080';
 
 void main() => runApp(const MyApp());
 
