@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
@@ -6,11 +5,12 @@ import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/blocs/user_signup_bloc.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/constants/helper_functions.dart';
+import 'package:dumper/constants/utils.dart';
+import 'package:dumper/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
-import '../../../main.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -23,9 +23,15 @@ class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final DatabaseMethods databaseMethods = DatabaseMethods();
   bool _isHidden = true;
   bool login = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +126,17 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    Map<String, String> data = {"username": username, "email": email,"password": password};
+                    Map<String, String> data = {
+                      "username": username,
+                      "email": email,
+                      "password": password
+                    };
                     var body = UserSignUpBloc(data);
+                    Map<String, String> userInfoMapFirebase = {
+                      "name": username,
+                      "email": email
+                    };
+                    databaseMethods.uploadUserInfo(userInfoMapFirebase);
                     if (body != null) {
                       Navigator.push(
                         context,

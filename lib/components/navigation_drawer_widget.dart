@@ -16,16 +16,14 @@ class NavigationDrawerWidget extends StatefulWidget {
 }
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
-  ApiResponse<Profile> _profile;
 
-  ProfileBloc _profileBloc;
+  final ProfileBloc _profileBloc = profileBloc.fetchUserProfile(1);
 
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   @override
   void initState() {
     super.initState();
-    _profileBloc = ProfileBloc(1);
   }
 
   @override

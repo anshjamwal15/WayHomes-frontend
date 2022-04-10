@@ -1,3 +1,4 @@
+import 'package:dumper/blocs/profile_bloc.dart';
 import 'package:dumper/components/global_app_bar.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   bool showPassword = true;
+
+
 
   @override
   void initState() {
@@ -87,9 +95,9 @@ class _BodyState extends State<Body> {
               const SizedBox(
                 height: 15,
               ),
-              buildTextField("Username", "Username", false),
-              buildTextField("E-mail", "E-mail", false),
-              buildTextField("Password", "Password", true),
+              buildTextField("Username", "Username", false, usernameController),
+              buildTextField("E-mail", "E-mail", false, emailController),
+              buildTextField("Password", "Password", true, passwordController),
               const SizedBox(
                 height: 15,
               ),
@@ -114,7 +122,13 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var email = emailController.text;
+                      var username = usernameController.text;
+                      var password = passwordController.text;
+                      // Map<String, String> data = {"email": email, "username": username, "password": password};
+                      // var body = _profileBloc.updateUserProfile(1, email, username, password);
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: kPrimaryColor,
                       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -142,10 +156,11 @@ class _BodyState extends State<Body> {
   }
 
   Widget buildTextField(
-      String labelText, String placeHolder, bool isPasswordTextField) {
+      String labelText, String placeHolder, bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(
+        controller: controller,
         cursorColor: kPrimaryColor,
         obscureText: isPasswordTextField ? showPassword : false,
         decoration: InputDecoration(
