@@ -1,4 +1,5 @@
 import 'package:dumper/Screens/Profile/components/body.dart';
+import 'package:dumper/model/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {

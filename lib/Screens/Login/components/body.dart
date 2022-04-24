@@ -27,11 +27,27 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
+Future<String> logInAttempt(String username, String password) async {
+  final response = await http.post(
+    Uri.parse('$SERVER_IP/api/auth/signin'),
+    body: jsonEncode(
+      <String, String>{'username': username, 'password': password},
+    ),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return "failed to login";
+  }
+}
 
 class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  
+
   bool _isHidden = true;
   bool login = true;
 
@@ -125,9 +141,15 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    Map<String, String> data = {"username": username, "password": password};
-                    var body = UserLoginBloc(data);
-                    if (body != null) {
+                    // Map<String, String> data = {
+                    //   "username": username,
+                    //   "password": password
+                    // };
+                    var body = await logInAttempt(username, password);
+                    if (body == "failed to login") {
+                      displayDialog(context, "An error Occurred",
+                          "No account was found matching that username and password");
+                    } else {
                       final SharedPreferences storage =
                           await SharedPreferences.getInstance();
                       storage.setString('email', username);
@@ -137,10 +159,13 @@ class _BodyState extends State<Body> {
                           builder: (context) => const LandingPage(),
                         ),
                       );
-                    } else {
-                      displayDialog(context, "An Error Occured",
-                          "No account was found matching that username and password");
                     }
+                    // if (body) {
+
+                    // } else {
+                    //   displayDialog(context, "An Error Occurred",
+                    //       "No account was found matching that username and password");
+                    // }
                   },
                 ),
               ),

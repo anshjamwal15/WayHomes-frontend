@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/data.dart';
+import 'package:dumper/main.dart';
 import 'package:dumper/model/house.dart';
 import 'package:dumper/model/property_model.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _HousesState extends State<Houses> {
 
   Future<bool> getData() async {
     final Uri url =
-        Uri.parse("http://192.168.0.126:8080/api/auth/property/all");
+        Uri.parse("$SERVER_IP/api/auth/property/all");
 
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});

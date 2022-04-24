@@ -1,4 +1,5 @@
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/main.dart';
 import 'package:dumper/model/property_model.dart';
 import 'package:dumper/model/single_property.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +19,13 @@ class _HouseDetailsState extends State<HouseDetails> {
 
   SingleProperty singleProperty;
 
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
   Future<String> getData() async {
     setState(() {
       isLoading = false;
     });
 
-    final Uri url =
-        Uri.parse("http://192.168.0.126:8080/api/auth/property/"+widget.houses.id.toString());
+    final Uri url = Uri.parse(
+        "$SERVER_IP/api/auth/property/" + widget.houses.id.toString());
 
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});
@@ -46,6 +41,12 @@ class _HouseDetailsState extends State<HouseDetails> {
     } else {
       return "Unable to fetch";
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
   }
 
   @override

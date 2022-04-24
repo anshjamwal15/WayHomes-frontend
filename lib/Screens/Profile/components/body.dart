@@ -1,6 +1,10 @@
-import 'package:dumper/blocs/profile_bloc.dart';
+import 'dart:convert';
+import 'package:dumper/Screens/Home/landing_page.dart';
+import 'package:http/http.dart' as http;
 import 'package:dumper/components/global_app_bar.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/main.dart';
+import 'package:dumper/model/profile_model.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -11,6 +15,38 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  Future<Profile> profile;
+
+  Future<Profile> fetchUserData(int userId) async {
+    final Uri url = Uri.parse("$SERVER_IP/api/auth/user/get-user-info/$userId");
+
+    final response =
+        await http.get(url, headers: {"ContentType": "application/json"});
+
+    if (response.statusCode == 200) {
+      return Profile.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to fetch user');
+    }
+  }
+
+  Future<String> updateUserProfile(int userId, Map<String, String> data) async {
+    final Uri url =
+        Uri.parse('$SERVER_IP/api/auth/user/update-profile/$userId');
+
+    final response = await http.post(
+      url,
+      body: jsonEncode(data),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return "Failed to update";
+    }
+  }
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
@@ -18,11 +54,10 @@ class _BodyState extends State<Body> {
 
   bool showPassword = true;
 
-
-
   @override
   void initState() {
     super.initState();
+    profile = fetchUserData(1);
   }
 
   @override
@@ -37,126 +72,150 @@ class _BodyState extends State<Body> {
         ),
         child: GestureDetector(
           onTap: () {},
-          child: ListView(
-            children: [
-              const Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Stack(
+          child: FutureBuilder<Profile>(
+            future: profile,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView(
                   children: [
-                    Container(
-                      width: 130,
-                      height: 130,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 4,
-                              color: Theme.of(context).scaffoldBackgroundColor),
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                            ),
-                          ],
-                          shape: BoxShape.circle,
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(image),
-                          )),
+                    const Text(
+                      "Edit Profile",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Stack(
+                        children: [
+                          Container(
+                            width: 130,
+                            height: 130,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 4,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor),
+                                boxShadow: [
+                                  BoxShadow(
+                                    spreadRadius: 2,
+                                    blurRadius: 10,
+                                    color: Colors.black.withOpacity(0.1),
+                                  ),
+                                ],
+                                shape: BoxShape.circle,
+                                image: const DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(image),
+                                )),
                           ),
-                          color: kPrimaryColor,
-                        ),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  width: 4,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                                color: kPrimaryColor,
+                              ),
+                              child: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    buildTextField("Username", snapshot.data.username, false,
+                        usernameController),
+                    buildTextField(
+                        "E-mail", snapshot.data.email, false, emailController),
+                    buildTextField(
+                        "Password", "Password", true, passwordController),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OutlinedButton(
+                          onPressed: () {},
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          child: const Text(
+                            "CANCEL",
+                            style: TextStyle(
+                              fontSize: 14,
+                              letterSpacing: 2.2,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () async {
+                            var email = emailController.text;
+                            var username = usernameController.text;
+                            var password = passwordController.text;
+                            Map<String, String> data = {
+                              "email": email,
+                              "username": username,
+                              "password": password
+                            };
+                            await updateUserProfile(1, data);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const LandingPage(),
+                              ),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: kPrimaryColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            elevation: 2,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: const Text(
+                            "SAVE",
+                            style: TextStyle(
+                              fontSize: 14,
+                              letterSpacing: 2.2,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              buildTextField("Username", "Username", false, usernameController),
-              buildTextField("E-mail", "E-mail", false, emailController),
-              buildTextField("Password", "Password", true, passwordController),
-              const SizedBox(
-                height: 15,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OutlinedButton(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    child: const Text(
-                      "CANCEL",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      var email = emailController.text;
-                      var username = usernameController.text;
-                      var password = passwordController.text;
-                      // Map<String, String> data = {"email": email, "username": username, "password": password};
-                      // var body = _profileBloc.updateUserProfile(1, email, username, password);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: kPrimaryColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: const Text(
-                      "SAVE",
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 2.2,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                );
+              } else {
+                return const CircularProgressIndicator();
+              }
+            },
           ),
         ),
       ),
     );
   }
 
-  Widget buildTextField(
-      String labelText, String placeHolder, bool isPasswordTextField, TextEditingController controller) {
+  Widget buildTextField(String labelText, String placeHolder,
+      bool isPasswordTextField, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 35.0),
       child: TextField(

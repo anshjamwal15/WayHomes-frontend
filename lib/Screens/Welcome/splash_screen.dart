@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     getValidation().whenComplete(() async {
       Timer(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
         () => username == null
             ? Navigator.push(
                 context,

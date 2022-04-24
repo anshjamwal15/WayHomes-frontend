@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
-import 'package:dumper/blocs/profile_bloc.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/main.dart';
 import 'package:dumper/model/profile_model.dart';
-import 'package:dumper/networking/api_response.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,13 +19,26 @@ class NavigationDrawerWidget extends StatefulWidget {
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
 
-  final ProfileBloc _profileBloc = profileBloc.fetchUserProfile(1);
+  Future<Profile> profile;
 
+  Future<Profile> fetchUserData(int userId) async {
+    final Uri url = Uri.parse("$SERVER_IP/api/auth/user/get-user-info/$userId");
+
+    final response =
+        await http.get(url, headers: {"ContentType": "application/json"});
+
+    if (response.statusCode == 200) {
+      return Profile.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to fetch user');
+    }
+  }
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   @override
   void initState() {
     super.initState();
+    profile = fetchUserData(1);
   }
 
   @override
@@ -32,18 +47,18 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
     const email = 'UserSix@gmail.com';
     // var urlImage = "assets/icons/login.svg";
     return Drawer(
-      child: StreamBuilder<ApiResponse<Profile>>(
-        stream: _profileBloc.profileDetailStream,
-        builder: (context, snapshot) {
-          return Drawer(
-            child: Material(
-              color: sPrimaryColor,
-              child: ListView(
-                children: <Widget>[
+      child: Material(
+        color: sPrimaryColor,
+        child: FutureBuilder<Profile>(
+          future: profile,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                children: [
                   buildHeader(
                     urlImage: image,
-                    name: snapshot.data.data.username,
-                    email: snapshot.data.data.email,
+                    name: snapshot.data.username,
+                    email: snapshot.data.email,
                   ),
                   const Divider(color: Colors.white70),
                   Container(
@@ -99,10 +114,12 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                     ),
                   ),
                 ],
-              ),
-            ),
-          );
-        },
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }
@@ -133,7 +150,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: const TextStyle(fontSize: 14, color: Colors.white),
+                    style: const TextStyle(fontSize: 10, color: Colors.white),
                   ),
                 ],
               ),
@@ -146,7 +163,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   );
                 },
                 child: const CircleAvatar(
-                  radius: 24,
+                  radius: 20,
                   backgroundColor: kPrimaryColor,
                   child: Icon(Icons.edit, color: Colors.white),
                 ),
