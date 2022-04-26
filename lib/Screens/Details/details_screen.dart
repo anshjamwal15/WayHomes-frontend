@@ -35,7 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ],
           ),
-          const BottomButtons(),
+          BottomButtons(house: widget.house),
         ],
       ),
     );

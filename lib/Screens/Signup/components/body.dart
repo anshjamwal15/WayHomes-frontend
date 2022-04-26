@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
-import 'package:dumper/blocs/user_signup_bloc.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
+import 'package:dumper/services/database.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
@@ -49,7 +50,7 @@ class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  // final DatabaseMethods databaseMethods = DatabaseMethods();
+  final DatabaseMethods databaseMethods = DatabaseMethods();
   bool _isHidden = true;
   bool login = true;
 
@@ -157,11 +158,13 @@ class _BodyState extends State<Body> {
                     //   "password": password
                     // };
                     var body = await signUp(username, email, password);
-                    // Map<String, String> userInfoMapFirebase = {
-                    //   "name": username,
-                    //   "email": email
-                    // };
-                    // databaseMethods.uploadUserInfo(userInfoMapFirebase);
+                    Map<String, String> userInfoMapFirebase = {
+                      "name": username,
+                      "email": email
+                    };
+                    databaseMethods.uploadUserInfo(userInfoMapFirebase);
+                    HelperFunctions.saveUserEmailSharedPreference(email);
+                    HelperFunctions.saveUserNameSharedPreference(username);
                     if (body == "failed to signUp") {
                       displayDialog(context, "An error Occurred", "Please use correct atleast 6-8 characters for password");
                     } else {

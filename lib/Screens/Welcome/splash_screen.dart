@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,10 +42,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future getValidation() async {
-    final SharedPreferences storage = await SharedPreferences.getInstance();
-    var obtainedEmail = storage.getString('email');
+    String name = await HelperFunctions.getUserNameSharedPreference();
+    // var obtainedEmail = storage.getString('');
     setState(() {
-      username = obtainedEmail;
+      username = name;
     });
   }
 

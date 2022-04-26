@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,5 +30,5 @@ class Utils {
     }
   }
 
-  static String myUsername = "";
+  String myUsername = "";
 }

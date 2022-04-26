@@ -1,37 +1,50 @@
 import 'package:dumper/Screens/messages/chat_detail_page.dart';
 import 'package:dumper/constants/utils.dart';
+import 'package:dumper/main.dart';
+import 'package:dumper/model/property_model.dart';
+import 'package:dumper/model/single_property.dart';
 import 'package:dumper/services/database.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../../../constants/constants.dart';
 
 class BottomButtons extends StatefulWidget {
-  const BottomButtons({Key key}) : super(key: key);
+  final Content house;
+
+  const BottomButtons({Key key, this.house}) : super(key: key);
 
   @override
   _BottomButtonsState createState() => _BottomButtonsState();
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
-
   DatabaseMethods databaseMethods = DatabaseMethods();
 
-  createChatroomAndStartConversation({String userName}) {
-    String chatRoomId = getChatRoomId(userName, Utils.myUsername);
+  createChatroom(String userName) async {
+    String name = await HelperFunctions.getUserNameSharedPreference();
 
-    List<String> users = [userName, Utils.myUsername];
+    String chatRoomId = getChatRoomId(userName, name);
+
+    List<String> users = [userName, name];
 
     Map<String, dynamic> chatRoomMap = {
       "users": users,
       "chatroomId": chatRoomId
     };
-    databaseMethods.createChatRoom(chatRoomId, chatRoomMap);
+    databaseMethods.createChatRoom(chatRoomMap, chatRoomId);
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ChatDetailPage(),
+        builder: (context) => ChatDetailPage(chatRoomId: chatRoomId, username: widget.house.user.username),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -39,12 +52,7 @@ class _BottomButtonsState extends State<BottomButtons> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ChatDetailPage(),
-          ),
-        );
+        createChatroom("riya");
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: appPadding),
@@ -117,7 +125,6 @@ class _BottomButtonsState extends State<BottomButtons> {
     );
   }
 }
-
 
 getChatRoomId(String a, String b) {
   if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {

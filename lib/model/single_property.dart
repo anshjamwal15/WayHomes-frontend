@@ -14,6 +14,7 @@ class SingleProperty {
         this.price,
         this.description,
         this.address,
+        this.user,
         this.propertyImages,
         this.isFavourite,
     });
@@ -26,6 +27,7 @@ class SingleProperty {
     int price;
     String description;
     String address;
+    User user;
     List<PropertyImage> propertyImages;
     dynamic isFavourite;
 
@@ -38,6 +40,7 @@ class SingleProperty {
         price: json["price"],
         description: json["description"],
         address: json["address"],
+        user: User.fromJson(json["user"]),
         propertyImages: List<PropertyImage>.from(json["propertyImages"].map((x) => PropertyImage.fromJson(x))),
         isFavourite: json["isFavourite"],
     );
@@ -51,6 +54,7 @@ class SingleProperty {
         "price": price,
         "description": description,
         "address": address,
+        "user": user.toJson(),
         "propertyImages": List<dynamic>.from(propertyImages.map((x) => x.toJson())),
         "isFavourite": isFavourite,
     };
@@ -85,5 +89,53 @@ class PropertyImage {
         "contentType": contentType,
         "name": name,
         "size": size,
+    };
+}
+
+class User {
+    User({
+        this.firstName,
+        this.lastName,
+        this.email,
+        this.username,
+        this.roles,
+    });
+
+    dynamic firstName;
+    dynamic lastName;
+    String email;
+    String username;
+    List<Role> roles;
+
+    factory User.fromJson(Map<String, dynamic> json) => User(
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        username: json["username"],
+        roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "username": username,
+        "roles": List<dynamic>.from(roles.map((x) => x.toJson())),
+    };
+}
+
+class Role {
+    Role({
+        this.name,
+    });
+
+    String name;
+
+    factory Role.fromJson(Map<String, dynamic> json) => Role(
+        name: json["name"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "name": name,
     };
 }

@@ -3,14 +3,12 @@ import 'dart:convert';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
-import 'package:dumper/blocs/user_login_bloc.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -150,9 +148,6 @@ class _BodyState extends State<Body> {
                       displayDialog(context, "An error Occurred",
                           "No account was found matching that username and password");
                     } else {
-                      final SharedPreferences storage =
-                          await SharedPreferences.getInstance();
-                      storage.setString('email', username);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

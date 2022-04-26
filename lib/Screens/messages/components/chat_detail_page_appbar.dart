@@ -1,7 +1,24 @@
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
-class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidget{
-  const ChatDetailPageAppBar({Key key}) : super(key: key);
+class ChatDetailPageAppBar extends StatefulWidget
+    implements PreferredSizeWidget {
+  final String username;
+  const ChatDetailPageAppBar({Key key, this.username}) : super(key: key);
+
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  _ChatDetailPageAppBarState createState() => _ChatDetailPageAppBarState();
+}
+
+class _ChatDetailPageAppBarState extends State<ChatDetailPageAppBar> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,37 +32,51 @@ class ChatDetailPageAppBar extends StatelessWidget implements PreferredSizeWidge
           child: Row(
             children: <Widget>[
               IconButton(
-                onPressed: (){
+                onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(Icons.arrow_back,color: Colors.black,),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
               ),
-              const SizedBox(width: 2,),
+              const SizedBox(
+                width: 2,
+              ),
               const CircleAvatar(
                 backgroundImage: AssetImage("images/user_2.png"),
                 maxRadius: 20,
               ),
-              const SizedBox(width: 12,),
+              const SizedBox(
+                width: 12,
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Text("Jane Russel",style: TextStyle(fontWeight: FontWeight.w600),),
-                    SizedBox(height: 6,),
-                    Text("Online",style: TextStyle(color: Colors.green,fontSize: 12),),
+                  children: <Widget>[
+                    Text(
+                      widget.username,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 6,
+                    ),
+                    const Text(
+                      "Online",
+                      style: TextStyle(color: Colors.green, fontSize: 12),
+                    ),
                   ],
                 ),
               ),
-              Icon(Icons.more_vert,color: Colors.grey.shade700,),
+              Icon(
+                Icons.more_vert,
+                color: Colors.grey.shade700,
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
