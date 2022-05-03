@@ -1,7 +1,11 @@
+import 'package:badges/badges.dart';
 import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
 import 'package:dumper/Screens/Home/components/categories.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
+import 'package:dumper/Screens/message_two/chat_detail_page.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
+import 'package:dumper/constants/utils.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
@@ -14,7 +18,15 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+  String myUsername = Utils().myUsername;
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+  int incomingMessages = 1;
+
+  @override
+  void initState() {
+    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {myUsername = value;})});
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +76,33 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   color: kPrimaryColor.withOpacity(0.4)),
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            child: const Icon(
-                              (Icons.insights_rounded),
-                              color: kPrimaryColor,
+                            child: Badge(
+                              padding: const EdgeInsets.all(8),
+                              badgeContent: Text(
+                                '$incomingMessages',
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: white,
+                                ),
+                              ),
+                              badgeColor: kPrimaryColor,
+                              child: IconButton(
+                                icon: const Icon(
+                                  (Icons.mail_rounded),
+                                  color: kPrimaryColor,
+                                ),
+                                onPressed: () {
+                                  // setState(() {
+                                  // });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ChatDetailPage(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],

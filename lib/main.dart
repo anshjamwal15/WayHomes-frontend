@@ -1,8 +1,9 @@
 import 'package:dumper/Screens/Welcome/splash_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'package:flutter/material.dart';
+
+import 'firebase_options.dart';
 
 const SERVER_IP = 'http://192.168.0.108:8081';
 

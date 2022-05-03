@@ -1,4 +1,3 @@
-import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetailPageAppBar extends StatefulWidget

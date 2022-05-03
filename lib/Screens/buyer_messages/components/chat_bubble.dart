@@ -16,11 +16,11 @@ class _ChatBubbleState extends State<ChatBubble> {
     return Container(
       padding: const EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
       child: Align(
-        alignment: widget.sendByMe ? Alignment.topLeft:Alignment.topRight,
+        alignment: widget.sendByMe ? Alignment.topRight:Alignment.topLeft,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: (widget.sendByMe ? kPrimaryLightColor:Colors.grey.shade200),
+            color: (widget.sendByMe ? Colors.grey.shade200:kPrimaryLightColor),
           ),
           padding: const EdgeInsets.all(16),
           child: Text(widget.message),

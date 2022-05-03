@@ -1,12 +1,9 @@
-import 'package:dumper/Screens/messages/chat_detail_page.dart';
-import 'package:dumper/constants/utils.dart';
-import 'package:dumper/main.dart';
+import 'package:dumper/Screens/buyer_messages/chat_detail_page.dart';
 import 'package:dumper/model/property_model.dart';
-import 'package:dumper/model/single_property.dart';
 import 'package:dumper/services/database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+
 import '../../../constants/constants.dart';
 
 class BottomButtons extends StatefulWidget {
@@ -37,7 +34,10 @@ class _BottomButtonsState extends State<BottomButtons> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ChatDetailPage(chatRoomId: chatRoomId, username: widget.house.user.username),
+        builder: (context) => ChatDetailPage(
+          chatRoomId: chatRoomId,
+          username: widget.house.user.username,
+        ),
       ),
     );
   }
@@ -52,7 +52,7 @@ class _BottomButtonsState extends State<BottomButtons> {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        createChatroom("riya");
+        createChatroom(widget.house.user.username);
       },
       child: Padding(
         padding: const EdgeInsets.only(bottom: appPadding),

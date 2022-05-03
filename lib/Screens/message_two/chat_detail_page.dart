@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dumper/Screens/messages/components/chat_bubble.dart';
-import 'package:dumper/Screens/messages/components/chat_detail_page_appbar.dart';
-import 'package:dumper/Screens/messages/components/send_menu_items.dart';
+import 'package:dumper/Screens/buyer_messages/components/chat_bubble.dart';
+import 'package:dumper/Screens/buyer_messages/components/chat_detail_page_appbar.dart';
+import 'package:dumper/Screens/buyer_messages/components/send_menu_items.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/constants/utils.dart';
 import 'package:dumper/services/database.dart';
@@ -9,16 +9,15 @@ import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetailPage extends StatefulWidget {
-  final String chatRoomId;
-  final String username;
-  const ChatDetailPage({Key key, this.chatRoomId, this.username}) : super(key: key);
+  const ChatDetailPage({Key key}) : super(key: key);
 
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
-  String myUsername = Utils().myUsername;
+  String myUsername = "User ten";
+  String chatRoomId = "User ten_akash";
   Stream<QuerySnapshot> chats;
   TextEditingController messageEditingController = TextEditingController();
 
@@ -97,8 +96,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   void initState(){
-    chats = DatabaseMethods().getChats(widget.chatRoomId);
-    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {myUsername = value;})});
+    chats = DatabaseMethods().getChats(chatRoomId);
+    // TODO: create Buyer and seller app separately
+    // HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {myUsername = value;})});
+
     super.initState();
   }
 
@@ -109,18 +110,20 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         "message": messageEditingController.text,
         "time": DateTime.now().millisecondsSinceEpoch,
       };
-      DatabaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
+      DatabaseMethods().addMessage(chatRoomId, chatMessageMap);
 
       setState(() {
         messageEditingController.text = "";
       });
+    } else {
+      print("Controller not working");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ChatDetailPageAppBar(username: widget.username),
+      appBar: const ChatDetailPageAppBar(username: "akash"),
       body: Stack(
         children: <Widget>[
           StreamBuilder(
@@ -176,6 +179,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   ),
                   Expanded(
                     child: TextField(
+                      controller: messageEditingController,
                       decoration: InputDecoration(
                           hintText: "Type message...",
                           hintStyle: TextStyle(color: Colors.grey.shade500),
@@ -206,5 +210,12 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         ],
       ),
     );
+  }
+}
+getChatRoomId(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\_$a";
+  } else {
+    return "$a\_$b";
   }
 }

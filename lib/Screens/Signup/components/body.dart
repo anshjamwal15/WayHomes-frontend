@@ -9,8 +9,8 @@ import 'package:dumper/main.dart';
 import 'package:dumper/services/database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 
 
 class Body extends StatefulWidget {

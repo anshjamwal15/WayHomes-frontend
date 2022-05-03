@@ -1,11 +1,12 @@
 import 'dart:convert';
+
 import 'package:dumper/Screens/Home/landing_page.dart';
-import 'package:http/http.dart' as http;
 import 'package:dumper/components/global_app_bar.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/model/profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
