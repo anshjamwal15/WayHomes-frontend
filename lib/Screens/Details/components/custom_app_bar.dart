@@ -4,14 +4,15 @@ import 'package:dumper/model/house.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key key}) : super(key: key);
+  const CustomAppBar({Key key, this.isFav}) : super(key: key);
+
+  final bool isFav;
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  House house = houseList[1];
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 borderRadius: BorderRadius.circular(15),
               ),
               child: IconButton(
-                icon: house.isFav
+                icon: widget.isFav
                     ? const Icon(
                         Icons.favorite_rounded,
                         color: kPrimaryColor,
@@ -64,9 +65,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         color: kPrimaryColor,
                       ),
                 onPressed: () {
-                  setState(() {
-                    house.isFav = !house.isFav;
-                  });
+
                 },
               ),
             )

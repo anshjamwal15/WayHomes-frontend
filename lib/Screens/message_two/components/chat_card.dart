@@ -14,7 +14,7 @@ class _ChatCardState extends State<ChatCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: press,
+      // onTap: press,
       child: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: kDefaultPadding, vertical: kDefaultPadding * 0.75),
@@ -24,9 +24,9 @@ class _ChatCardState extends State<ChatCard> {
               children: [
                 CircleAvatar(
                   radius: 24,
-                  backgroundImage: AssetImage(chat.image),
+                  // backgroundImage: AssetImage(chat.image),
                 ),
-                if (chat.isActive)
+                // if (chat.isActive)
                   Positioned(
                     right: 0,
                     bottom: 0,
@@ -50,7 +50,7 @@ class _ChatCardState extends State<ChatCard> {
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Text(
                       "chat.name",
                       style:
@@ -60,7 +60,8 @@ class _ChatCardState extends State<ChatCard> {
                     Opacity(
                       opacity: 0.64,
                       child: Text(
-                        chat.lastMessage,
+                        // chat.lastMessage,
+                        'jasnd',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -69,7 +70,7 @@ class _ChatCardState extends State<ChatCard> {
                 ),
               ),
             ),
-            Opacity(
+            const Opacity(
               opacity: 0.64,
               child: Text("11:08"),
             ),

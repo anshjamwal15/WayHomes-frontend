@@ -21,12 +21,13 @@ class _CarouselImagesState extends State<CarouselImages> {
   int _current = 0;
 
   showImage(String image) {
-    return Image.memory(base64Decode(image));
+    return Image.network(image);
+    // return Image.memory(base64Decode(image));
   }
 
   @override
   void initState() {
-    imgs = widget.house.propertyImages.map((e) => showImage(e.data)).toList();
+    imgs = widget.house.propertyImages.map((e) => showImage(e.path)).toList();
     super.initState();
   }
   @override

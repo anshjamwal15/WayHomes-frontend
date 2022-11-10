@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'firebase_options.dart';
 
-const SERVER_IP = 'http://192.168.0.108:8081';
+const SERVER_IP = 'http://192.168.1.3:8081';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

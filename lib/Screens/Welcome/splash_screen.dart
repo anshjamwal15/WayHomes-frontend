@@ -42,7 +42,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future getValidation() async {
     String name = await HelperFunctions.getUserNameSharedPreference();
-    // var obtainedEmail = storage.getString('');
     setState(() {
       username = name;
     });
