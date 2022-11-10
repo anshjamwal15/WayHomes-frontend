@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
 import 'package:dumper/Screens/Home/components/categories.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
-import 'package:dumper/Screens/message_two/chat_detail_page.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:dumper/constants/utils.dart';
 import 'package:dumper/services/helper_functions.dart';
@@ -24,7 +23,11 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {myUsername = value;})});
+    HelperFunctions.getUserNameSharedPreference().then((value) => {
+          setState(() {
+            myUsername = value;
+          })
+        });
     super.initState();
   }
 
@@ -92,16 +95,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   (Icons.mail_rounded),
                                   color: kPrimaryColor,
                                 ),
-                                onPressed: () {
-                                  // setState(() {
-                                  // });
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ChatDetailPage(),
-                                    ),
-                                  );
-                                },
+                                onPressed: () {},
                               ),
                             ),
                           ),
