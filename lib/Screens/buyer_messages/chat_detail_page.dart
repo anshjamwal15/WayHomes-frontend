@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 class ChatDetailPage extends StatefulWidget {
   final String chatRoomId;
   final String username;
-  const ChatDetailPage({Key key, this.chatRoomId, this.username}) : super(key: key);
+  const ChatDetailPage({Key key, this.chatRoomId, this.username})
+      : super(key: key);
 
   @override
   _ChatDetailPageState createState() => _ChatDetailPageState();
@@ -96,18 +97,22 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   }
 
   @override
-  void initState(){
+  void initState() {
     chats = DatabaseMethods().getChats(widget.chatRoomId);
-    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {myUsername = value;})});
+    HelperFunctions.getUserNameSharedPreference().then((value) => {
+          setState(() {
+            myUsername = value;
+          })
+        });
     super.initState();
   }
 
   addMessage() {
-    if (messageEditingController.text.isNotEmpty){
+    if (messageEditingController.text.isNotEmpty) {
       Map<String, dynamic> chatMessageMap = {
         "sendBy": myUsername,
         "message": messageEditingController.text,
-        "time": DateTime.now().millisecondsSinceEpoch,
+        "time": DateTime.now(),
       };
       DatabaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
 
@@ -137,7 +142,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   itemBuilder: (context, index) {
                     return ChatBubble(
                       message: snapshot.data.docs[index].data()["message"],
-                      sendByMe: myUsername == snapshot.data.docs[index].data()["sendBy"],
+                      sendByMe: myUsername ==
+                          snapshot.data.docs[index].data()["sendBy"],
                     );
                   },
                 );

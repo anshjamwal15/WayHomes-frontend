@@ -2,19 +2,19 @@ import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const GlobalAppBar({ Key key }) : super(key: key);
+  const GlobalAppBar({Key key}) : super(key: key);
 
   @override
   Size get preferredSize => Size.fromHeight(60.0);
 
-   @override
+  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(
-        left: 16,
-        right: 15,
-        top: 16,
+        left: appPadding / 2,
+        right: appPadding / 2,
+        top: appPadding + 30,
       ),
       child: Container(
         height: size.height * 0.12,

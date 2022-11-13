@@ -27,7 +27,8 @@ class _BottomButtonsState extends State<BottomButtons> {
 
     Map<String, dynamic> chatRoomMap = {
       "users": users,
-      "chatroomId": chatRoomId
+      "chatroomId": chatRoomId,
+      "time": DateTime.now()
     };
     databaseMethods.createChatRoom(chatRoomMap, chatRoomId);
 

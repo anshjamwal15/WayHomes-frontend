@@ -5,6 +5,7 @@ import 'package:dumper/components/global_app_bar.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/model/profile_model.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,23 +18,28 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Future<Profile> profile;
+  bool profileData = false;
+  Future<Profile> fetchUserData() async {
+    final email = await HelperFunctions.getUserEmailSharedPreference();
 
-  Future<Profile> fetchUserData(int userId) async {
-    final Uri url = Uri.parse("$SERVER_IP/api/auth/user/get-user-info/$userId");
+    final Uri url =
+        Uri.parse("$SERVER_IP/api/auth/user/getuserinfo?email=$email");
 
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});
 
     if (response.statusCode == 200) {
+      profileData = true;
       return Profile.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to fetch user');
     }
+    throw Exception('Failed to fetch user');
   }
 
-  Future<String> updateUserProfile(int userId, Map<String, String> data) async {
+  Future<String> updateUserProfile(Map<String, String> data) async {
+    final email = await HelperFunctions.getUserEmailSharedPreference();
+
     final Uri url =
-        Uri.parse('$SERVER_IP/api/auth/user/update-profile/$userId');
+        Uri.parse('$SERVER_IP/api/auth/user/updateprofile?email=$email');
 
     final response = await http.post(
       url,
@@ -44,9 +50,8 @@ class _BodyState extends State<Body> {
     );
     if (response.statusCode == 200) {
       return response.body;
-    } else {
-      return "Failed to update";
     }
+    return "Failed to update";
   }
 
   final TextEditingController emailController = TextEditingController();
@@ -57,8 +62,8 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
+    profile = fetchUserData();
     super.initState();
-    profile = fetchUserData(1);
   }
 
   @override
@@ -68,7 +73,7 @@ class _BodyState extends State<Body> {
       body: Container(
         padding: const EdgeInsets.only(
           left: appPadding,
-          top: 10,
+          top: appPadding + 10,
           right: appPadding,
         ),
         child: GestureDetector(
@@ -177,7 +182,15 @@ class _BodyState extends State<Body> {
                               "username": username,
                               "password": password
                             };
-                            await updateUserProfile(1, data);
+                            await updateUserProfile(data);
+                            if (email.isNotEmpty) {
+                              await HelperFunctions
+                                  .saveUserEmailSharedPreference(email);
+                            }
+                            if (username.isNotEmpty) {
+                              await HelperFunctions
+                                  .saveUserNameSharedPreference(username);
+                            }
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => const LandingPage(),
@@ -185,7 +198,7 @@ class _BodyState extends State<Body> {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            primary: kPrimaryColor,
+                            backgroundColor: kPrimaryColor,
                             padding: const EdgeInsets.symmetric(horizontal: 50),
                             elevation: 2,
                             shape: RoundedRectangleBorder(

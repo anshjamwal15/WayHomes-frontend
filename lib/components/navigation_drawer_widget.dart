@@ -2,25 +2,25 @@ import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/data/dummy_data.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key key}) : super(key: key);
-
+  NavigationDrawerWidget({Key key, this.username, this.email})
+      : super(key: key);
+  String username;
+  String email;
   @override
   _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
 }
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
-  String username;
-  String email;
+
   @override
   void initState() {
-    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {username = value;})});
-    HelperFunctions.getUserEmailSharedPreference().then((value) => {setState(() {email = value;})});
     super.initState();
   }
 
@@ -32,8 +32,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
         child: ListView(
           children: [
             buildHeader(
-              name: username,
-              email: email,
+              name: widget.username,
+              email: widget.email,
             ),
             const Divider(color: Colors.white70),
             Container(
@@ -106,7 +106,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
             children: [
               const CircleAvatar(
                 radius: 30,
-                backgroundImage: AssetImage("images/default-user.jpg"),
+                backgroundImage: NetworkImage(myUrlAvatar),
               ),
               const SizedBox(width: 20),
               Column(

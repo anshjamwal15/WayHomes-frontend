@@ -1,3 +1,4 @@
+import 'package:dumper/data/dummy_data.dart';
 import 'package:flutter/material.dart';
 
 class ChatDetailPageAppBar extends StatefulWidget
@@ -43,7 +44,7 @@ class _ChatDetailPageAppBarState extends State<ChatDetailPageAppBar> {
                 width: 2,
               ),
               const CircleAvatar(
-                backgroundImage: AssetImage("images/default-user.jpg"),
+                backgroundImage: NetworkImage(myUrlAvatar),
                 maxRadius: 20,
               ),
               const SizedBox(

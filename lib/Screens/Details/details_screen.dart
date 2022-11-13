@@ -15,7 +15,6 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -59,7 +59,6 @@ class _HousesState extends State<Houses> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    House house = houseList[1];
     if (_property.isNotEmpty) {
       return Expanded(
         child: FutureBuilder<Content>(

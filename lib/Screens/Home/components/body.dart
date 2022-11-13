@@ -2,8 +2,8 @@ import 'package:badges/badges.dart';
 import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
 import 'package:dumper/Screens/Home/components/categories.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
+import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
-import 'package:dumper/constants/utils.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -17,15 +17,21 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
-  String myUsername = Utils().myUsername;
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
   int incomingMessages = 1;
+  String username = '';
+  String email = '';
 
   @override
   void initState() {
     HelperFunctions.getUserNameSharedPreference().then((value) => {
           setState(() {
-            myUsername = value;
+            username = value;
+          })
+        });
+    HelperFunctions.getUserEmailSharedPreference().then((value) => {
+          setState(() {
+            email = value;
           })
         });
     super.initState();
@@ -95,7 +101,14 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   (Icons.mail_rounded),
                                   color: kPrimaryColor,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => const ChatsScreen(),
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -133,7 +146,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           const BottomButtons(),
         ],
       ),
-      drawer: const NavigationDrawerWidget(),
+      drawer: NavigationDrawerWidget(username: username, email: email),
     );
   }
 }
