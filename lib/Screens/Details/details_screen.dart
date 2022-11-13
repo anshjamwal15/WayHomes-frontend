@@ -27,7 +27,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               Stack(
                 children: [
                   CarouselImages(house: widget.house),
-                  const CustomAppBar(),
+                  CustomAppBar(isFav: widget.house.isFav),
                 ],
               ),
               HouseDetails(
@@ -35,7 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ),
             ],
           ),
-          const BottomButtons(),
+          BottomButtons(house: widget.house),
         ],
       ),
     );

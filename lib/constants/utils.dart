@@ -29,4 +29,6 @@ class Utils {
       }
     }
   }
+
+  String myUsername = "";
 }

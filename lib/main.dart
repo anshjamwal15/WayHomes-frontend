@@ -1,10 +1,17 @@
 import 'package:dumper/Screens/Welcome/splash_screen.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-const SERVER_IP = 'http://192.168.0.126:8080';
+import 'firebase_options.dart';
 
-void main() => runApp(const MyApp());
+const SERVER_IP = 'http://192.168.1.3:8081';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);

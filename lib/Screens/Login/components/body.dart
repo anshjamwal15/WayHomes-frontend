@@ -9,7 +9,6 @@ import 'package:dumper/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -26,19 +25,21 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
-Future<String> attemptLogIn(String username, String password) async {
+Future<String> logInAttempt(String username, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signin'),
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'password': password,
-    }),
+    body: jsonEncode(
+      <String, String>{'username': username, 'password': password},
+    ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
-  if (response.statusCode == 200) return response.body;
-  return null;
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return "failed to login";
+  }
 }
 
 class _BodyState extends State<Body> {
@@ -138,21 +139,28 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    var body = await attemptLogIn(username, password);
-                    if (body != null) {
-                      final SharedPreferences storage =
-                          await SharedPreferences.getInstance();
-                      storage.setString('email', username);
+                    // Map<String, String> data = {
+                    //   "username": username,
+                    //   "password": password
+                    // };
+                    var body = await logInAttempt(username, password);
+                    if (body == "failed to login") {
+                      displayDialog(context, "An error Occurred",
+                          "No account was found matching that username and password");
+                    } else {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const LandingPage(),
                         ),
                       );
-                    } else {
-                      displayDialog(context, "An Error Occured",
-                          "No account was found matching that username and password");
                     }
+                    // if (body) {
+
+                    // } else {
+                    //   displayDialog(context, "An Error Occurred",
+                    //       "No account was found matching that username and password");
+                    // }
                   },
                 ),
               ),

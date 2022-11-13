@@ -2,6 +2,7 @@ import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,30 +15,25 @@ class NavigationDrawerWidget extends StatefulWidget {
 
 class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
-
+  String username;
+  String email;
   @override
   void initState() {
+    HelperFunctions.getUserNameSharedPreference().then((value) => {setState(() {username = value;})});
+    HelperFunctions.getUserEmailSharedPreference().then((value) => {setState(() {email = value;})});
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    const name = 'User Six';
-    const email = 'UserSix@gmail.com';
-    // var urlImage = "assets/icons/login.svg";
-
     return Drawer(
       child: Material(
         color: sPrimaryColor,
         child: ListView(
-          children: <Widget>[
+          children: [
             buildHeader(
-              // urlImage: urlImage,
-              name: name,
+              name: username,
               email: email,
-              onClicked: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
-              ),
             ),
             const Divider(color: Colors.white70),
             Container(
@@ -99,20 +95,18 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
   }
 
   Widget buildHeader({
-    String urlImage,
     String name,
     String email,
     VoidCallback onClicked,
   }) =>
       InkWell(
-        onTap: onClicked,
         child: Container(
           padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
               const CircleAvatar(
                 radius: 30,
-                // backgroundImage: AssetImage("assets/icons/login.svg"),
+                backgroundImage: AssetImage("images/default-user.jpg"),
               ),
               const SizedBox(width: 20),
               Column(
@@ -125,15 +119,24 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: const TextStyle(fontSize: 14, color: Colors.white),
+                    style: const TextStyle(fontSize: 10, color: Colors.white),
                   ),
                 ],
               ),
               const Spacer(),
-              const CircleAvatar(
-                radius: 24,
-                backgroundColor: kPrimaryColor,
-                child: Icon(Icons.add_comment_outlined, color: Colors.white),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfilePage(),
+                    ),
+                  );
+                },
+                child: const CircleAvatar(
+                  radius: 20,
+                  backgroundColor: kPrimaryColor,
+                  child: Icon(Icons.edit, color: Colors.white),
+                ),
               )
             ],
           ),

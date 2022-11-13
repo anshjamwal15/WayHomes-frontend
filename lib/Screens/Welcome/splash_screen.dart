@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     getValidation().whenComplete(() async {
       Timer(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
         () => username == null
             ? Navigator.push(
                 context,
@@ -41,10 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future getValidation() async {
-    final SharedPreferences storage = await SharedPreferences.getInstance();
-    var obtainedEmail = storage.getString('email');
+    String name = await HelperFunctions.getUserNameSharedPreference();
     setState(() {
-      username = obtainedEmail;
+      username = name;
     });
   }
 

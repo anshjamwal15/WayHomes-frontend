@@ -5,11 +5,13 @@ import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/main.dart';
+import 'package:dumper/services/database.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../main.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -18,31 +20,44 @@ class Body extends StatefulWidget {
   _BodyState createState() => _BodyState();
 }
 
-Future<String> createUser(
-    String username, String email, String password) async {
+void displayDialog(context, title, text) => showDialog(
+  context: context,
+  builder: (context) => AlertDialog(
+    title: Text(title),
+    content: Text(text),
+  ),
+);
+
+Future<String> signUp(String username, String email, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signup'),
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'email': email,
-      'password': password,
-    }),
+    body: jsonEncode(
+      <String, String>{'username': username, 'email': email,'password': password},
+    ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
   );
+  if (response.statusCode == 200) {
+    return response.body;
+  } else {
+    return "failed to signUp";
+  }
 
-  if (response.statusCode == 200) return response.body;
-  return null;
 }
 
 class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+  final DatabaseMethods databaseMethods = DatabaseMethods();
   bool _isHidden = true;
   bool login = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,8 +152,22 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    var jwt = await createUser(username, email, password);
-                    if (jwt != null) {
+                    // Map<String, String> data = {
+                    //   "username": username,
+                    //   "email": email,
+                    //   "password": password
+                    // };
+                    var body = await signUp(username, email, password);
+                    Map<String, String> userInfoMapFirebase = {
+                      "name": username,
+                      "email": email
+                    };
+                    databaseMethods.uploadUserInfo(userInfoMapFirebase);
+                    HelperFunctions.saveUserEmailSharedPreference(email);
+                    HelperFunctions.saveUserNameSharedPreference(username);
+                    if (body == "failed to signUp") {
+                      displayDialog(context, "An error Occurred", "Please use correct atleast 6-8 characters for password");
+                    } else {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
