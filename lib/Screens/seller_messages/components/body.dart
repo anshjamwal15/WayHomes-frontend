@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/Screens/buyer_messages/chat_detail_page.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/model/chat_screen_model.dart';
 import 'package:dumper/services/database.dart';
 import 'package:flutter/material.dart';
 import 'chat_card.dart';
@@ -15,11 +16,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool addNew = false;
   Stream<QuerySnapshot> chatRooms;
-
   @override
   void initState() {
     chatRooms = DatabaseMethods().getUserChats('Ansh');
-    DatabaseMethods().getAllUserChats('Ansh');
     super.initState();
   }
 
@@ -63,20 +62,21 @@ class _BodyState extends State<Body> {
           stream: chatRooms,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              // var data = snapshot.
               return Expanded(
                 child: ListView.builder(
-                  itemCount: snapshot.data.docs.length,
-                    //data={users: [user1, user2], chatroomId: user1_user2}
-                  itemBuilder: (context, index) => ChatCard(
-                    chat: 5,
-                    press: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ChatDetailPage(),
-                      ),
-                    ),
-                  ),
-                ),
+                    itemCount: snapshot.data.docs.length,
+                    itemBuilder: (context, index) {
+                      return ChatCard(
+                        chatroomId: snapshot.data.docs[index].data()["chatroomId"],
+                        press: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ChatDetailPage(),
+                          ),
+                        ),
+                      );
+                    }),
               );
             } else {
               return const CircularProgressIndicator();
