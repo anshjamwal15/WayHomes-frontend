@@ -6,6 +6,7 @@ import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -25,7 +26,7 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
-Future<String> logInAttempt(String username, String password) async {
+Future<Map<String, dynamic>> logInAttempt(String username, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signin'),
     body: jsonEncode(
@@ -36,9 +37,9 @@ Future<String> logInAttempt(String username, String password) async {
     },
   );
   if (response.statusCode == 200) {
-    return response.body;
+    return json.decode(response.body);
   } else {
-    return "failed to login";
+    return json.decode(response.body);
   }
 }
 
@@ -127,7 +128,7 @@ class _BodyState extends State<Body> {
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: kPrimaryColor,
+                    backgroundColor: kPrimaryColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
@@ -139,11 +140,9 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    // Map<String, String> data = {
-                    //   "username": username,
-                    //   "password": password
-                    // };
                     var body = await logInAttempt(username, password);
+                    HelperFunctions.saveUserEmailSharedPreference(body['email']);
+                    HelperFunctions.saveUserNameSharedPreference(body['username']);
                     if (body == "failed to login") {
                       displayDialog(context, "An error Occurred",
                           "No account was found matching that username and password");

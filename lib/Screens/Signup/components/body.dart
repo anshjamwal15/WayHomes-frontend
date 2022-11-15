@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
 
-
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
 
@@ -21,18 +20,22 @@ class Body extends StatefulWidget {
 }
 
 void displayDialog(context, title, text) => showDialog(
-  context: context,
-  builder: (context) => AlertDialog(
-    title: Text(title),
-    content: Text(text),
-  ),
-);
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(text),
+      ),
+    );
 
 Future<String> signUp(String username, String email, String password) async {
   final response = await http.post(
     Uri.parse('$SERVER_IP/api/auth/signup'),
     body: jsonEncode(
-      <String, String>{'username': username, 'email': email,'password': password},
+      <String, String>{
+        'username': username,
+        'email': email,
+        'password': password
+      },
     ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
@@ -43,7 +46,6 @@ Future<String> signUp(String username, String email, String password) async {
   } else {
     return "failed to signUp";
   }
-
 }
 
 class _BodyState extends State<Body> {
@@ -152,11 +154,6 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    // Map<String, String> data = {
-                    //   "username": username,
-                    //   "email": email,
-                    //   "password": password
-                    // };
                     var body = await signUp(username, email, password);
                     Map<String, String> userInfoMapFirebase = {
                       "name": username,
@@ -166,7 +163,8 @@ class _BodyState extends State<Body> {
                     HelperFunctions.saveUserEmailSharedPreference(email);
                     HelperFunctions.saveUserNameSharedPreference(username);
                     if (body == "failed to signUp") {
-                      displayDialog(context, "An error Occurred", "Please use correct atleast 6-8 characters for password");
+                      displayDialog(context, "An error Occurred",
+                          "Please use correct atleast 6-8 characters for password");
                     } else {
                       Navigator.push(
                         context,

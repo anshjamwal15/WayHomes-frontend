@@ -32,6 +32,8 @@ class DatabaseMethods {
         .doc(chatroomId)
         .collection("chats")
         .where('sendBy', isNotEqualTo: myUserName)
+        .orderBy("sendBy")
+        .orderBy("time")
         .snapshots();
   }
 

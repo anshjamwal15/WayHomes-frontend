@@ -1,14 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dumper/Screens/buyer_messages/chat_detail_page.dart';
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/model/chat_screen_model.dart';
 import 'package:dumper/services/database.dart';
 import 'package:flutter/material.dart';
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key key}) : super(key: key);
-
+  Body({Key key,this.username}) : super(key: key);
+  String username;
   @override
   _BodyState createState() => _BodyState();
 }
@@ -18,7 +16,7 @@ class _BodyState extends State<Body> {
   Stream<QuerySnapshot> chatRooms;
   @override
   void initState() {
-    chatRooms = DatabaseMethods().getUserChats('Ansh');
+    chatRooms = DatabaseMethods().getUserChats(widget.username);
     super.initState();
   }
 
@@ -62,19 +60,14 @@ class _BodyState extends State<Body> {
           stream: chatRooms,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              // var data = snapshot.
               return Expanded(
                 child: ListView.builder(
                     itemCount: snapshot.data.docs.length,
                     itemBuilder: (context, index) {
+                      // var data = snapshot.data.docs[index].data()["users"].
                       return ChatCard(
+                        username: widget.username,
                         chatroomId: snapshot.data.docs[index].data()["chatroomId"],
-                        press: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ChatDetailPage(),
-                          ),
-                        ),
                       );
                     }),
               );

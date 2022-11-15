@@ -105,7 +105,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => const ChatsScreen(),
+                                      builder: (_) => ChatsScreen(username: username),
                                     ),
                                   );
                                 },

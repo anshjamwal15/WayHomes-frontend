@@ -4,8 +4,8 @@ import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class ChatsScreen extends StatefulWidget {
-  const ChatsScreen({Key key}) : super(key: key);
-
+  ChatsScreen({Key key,this.username}) : super(key: key);
+  String username;
   @override
   _ChatsScreenState createState() => _ChatsScreenState();
 }
@@ -15,7 +15,7 @@ class _ChatsScreenState extends State<ChatsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const GlobalAppBar(),
-      body: const Body(),
+      body: Body(username: widget.username),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: kPrimaryColor,

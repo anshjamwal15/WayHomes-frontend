@@ -30,6 +30,7 @@
 .pub-cache/
 .pub/
 /build/
+/lib/firebase_options.dart
 
 # Visual Studio Code related
 .vscode
