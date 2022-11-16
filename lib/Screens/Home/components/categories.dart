@@ -1,4 +1,3 @@
-import 'package:dumper/data/data.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
@@ -12,6 +11,12 @@ class Categories extends StatefulWidget {
 
 class _CategoriesState extends State<Categories> {
   int selectedCategoryIndex = 0;
+  List<String> categoryList = [
+    'For Sale',
+    '3-4 bed room',
+    'Garages',
+    'Modular kitchen'
+  ];
 
   Widget _buildCategory(BuildContext context, int index) {
     return GestureDetector(
@@ -53,7 +58,7 @@ class _CategoriesState extends State<Categories> {
         top: appPadding / 2,
         bottom: appPadding,
       ),
-      child: Container(
+      child: SizedBox(
         height: size.height * 0.05,
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),

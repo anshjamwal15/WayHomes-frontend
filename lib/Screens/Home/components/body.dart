@@ -6,7 +6,7 @@ import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
@@ -77,41 +77,44 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                               },
                             ),
                           ),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: kPrimaryColor.withOpacity(0.4)),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Badge(
-                              padding: const EdgeInsets.all(8),
-                              badgeContent: Text(
-                                '$incomingMessages',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: white,
-                                ),
-                              ),
-                              badgeColor: kPrimaryColor,
-                              child: IconButton(
-                                icon: const Icon(
-                                  (Icons.mail_rounded),
-                                  color: kPrimaryColor,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => ChatsScreen(username: username),
+                          Role.getString() == Role.modRole
+                              ? Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: kPrimaryColor.withOpacity(0.4)),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  child: Badge(
+                                    padding: const EdgeInsets.all(8),
+                                    badgeContent: Text(
+                                      '$incomingMessages',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: white,
+                                      ),
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
+                                    badgeColor: kPrimaryColor,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        (Icons.mail_rounded),
+                                        color: kPrimaryColor,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) =>
+                                                ChatsScreen(username: username),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                )
+                              : const Opacity(opacity: 0.64),
                         ],
                       ),
                       Column(

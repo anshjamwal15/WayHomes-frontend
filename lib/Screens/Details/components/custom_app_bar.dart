@@ -1,6 +1,4 @@
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/data/data.dart';
-import 'package:dumper/model/house.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget {
