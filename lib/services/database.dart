@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/data/dummy_data.dart';
 import 'package:dumper/model/chat_screen_model.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseMethods {
   uploadUserInfo(userMap) {
@@ -54,5 +55,11 @@ class DatabaseMethods {
         .where('users', arrayContains: myUsername)
         .orderBy("time")
         .snapshots();
+  }
+
+  String propImage(int propId) {
+    var ref = FirebaseStorage.instance.ref().child("properties/prop-$propId");
+    String url = ref.getDownloadURL().toString();
+    return url;
   }
 }

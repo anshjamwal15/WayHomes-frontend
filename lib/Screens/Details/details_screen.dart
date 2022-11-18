@@ -26,7 +26,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               Stack(
                 children: [
                   CarouselImages(house: widget.house),
-                  CustomAppBar(isFav: widget.house.isFav),
+                  CustomAppBar(isFav: widget.house.isFav, id: widget.house.id),
                 ],
               ),
               HouseDetails(
