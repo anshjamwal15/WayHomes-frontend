@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -146,10 +147,6 @@ class _BodyState extends State<Body> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(29),
                 child: ElevatedButton(
-                  child: const Text(
-                    "SIGN UP",
-                    style: TextStyle(color: Colors.white),
-                  ),
                   onPressed: () async {
                     var username = usernameController.text;
                     var email = emailController.text;
@@ -175,7 +172,7 @@ class _BodyState extends State<Body> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: kPrimaryColor,
+                    backgroundColor: kPrimaryColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
@@ -183,6 +180,10 @@ class _BodyState extends State<Body> {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
+                  ),
+                  child: const Text(
+                    "SIGN UP",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ),
@@ -258,10 +259,17 @@ class _BodyState extends State<Body> {
                 ),
                 SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
-                  press: () {},
+                  press: () async {
+                    await DatabaseMethods().signInWithGoogle();
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LandingPage()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
                 )
               ],
-            )
+            ),
           ],
         ),
       ),

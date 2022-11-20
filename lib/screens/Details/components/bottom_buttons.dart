@@ -1,6 +1,6 @@
 import 'package:dumper/Screens/buyer_messages/chat_detail_page.dart';
 import 'package:dumper/model/property_model.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 

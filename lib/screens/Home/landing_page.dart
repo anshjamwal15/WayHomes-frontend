@@ -1,5 +1,7 @@
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
+import 'package:dumper/services/helper_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
@@ -11,9 +13,11 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   bool _loading = true;
-
+  User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
+    HelperFunctions.saveUserEmailSharedPreference(user.email);
+    HelperFunctions.saveUserNameSharedPreference(user.displayName);
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {

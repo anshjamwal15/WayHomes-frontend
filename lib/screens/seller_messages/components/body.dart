@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'chat_card.dart';
 

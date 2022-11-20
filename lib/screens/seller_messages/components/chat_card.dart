@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/dummy_data.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/Screens/seller_messages/components/chat_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

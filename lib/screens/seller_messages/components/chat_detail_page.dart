@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dumper/Screens/buyer_messages/components/chat_bubble.dart';
-import 'package:dumper/Screens/buyer_messages/components/chat_detail_page_appbar.dart';
-import 'package:dumper/Screens/buyer_messages/components/send_menu_items.dart';
+import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/send_menu_items.dart';
+import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/chat_detail_page_appbar.dart';
+import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/chat_bubble.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/constants/utils.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -138,7 +138,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   itemCount: snapshot.data.docs.length,
                   shrinkWrap: true,
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   itemBuilder: (context, index) {
                     return ChatBubble(
                       message: snapshot.data.docs[index].data()["message"],

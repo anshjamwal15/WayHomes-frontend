@@ -2,7 +2,7 @@ import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/model/property_model.dart';
-import 'package:dumper/services/database.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/home_page_service.dart';
 import 'package:flutter/material.dart';
