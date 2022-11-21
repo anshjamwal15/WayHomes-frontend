@@ -98,7 +98,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   void initState() {
-    chats = DatabaseMethods().getChats(widget.chatRoomId);
+    chats = FirebaseMethods().getChats(widget.chatRoomId);
     HelperFunctions.getUserNameSharedPreference().then((value) => {
           setState(() {
             myUsername = value;
@@ -114,7 +114,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         "message": messageEditingController.text,
         "time": DateTime.now(),
       };
-      DatabaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
+      FirebaseMethods().addMessage(widget.chatRoomId, chatMessageMap);
 
       setState(() {
         messageEditingController.text = "";

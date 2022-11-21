@@ -8,6 +8,7 @@ import 'package:dumper/constants/constants.dart';
 import 'package:dumper/constants/roles_list.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -26,23 +27,6 @@ void displayDialog(context, title, text) => showDialog(
         content: Text(text),
       ),
     );
-
-Future<Map<String, dynamic>> logInAttempt(String username, String password) async {
-  final response = await http.post(
-    Uri.parse('$SERVER_IP/api/auth/signin'),
-    body: jsonEncode(
-      <String, String>{'username': username, 'password': password},
-    ),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-  if (response.statusCode == 200) {
-    return json.decode(response.body);
-  } else {
-    return json.decode(response.body);
-  }
-}
 
 class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
@@ -141,7 +125,7 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    var body = await logInAttempt(username, password);
+                    var body = await UserService().logInAttempt(username, password);
                     Role.setString(body['roles'][0]);
                     HelperFunctions.saveUserEmailSharedPreference(body['email']);
                     HelperFunctions.saveUserNameSharedPreference(body['username']);

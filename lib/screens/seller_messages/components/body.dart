@@ -16,7 +16,7 @@ class _BodyState extends State<Body> {
   Stream<QuerySnapshot> chatRooms;
   @override
   void initState() {
-    chatRooms = DatabaseMethods().getUserChats(widget.username);
+    chatRooms = FirebaseMethods().getUserChats(widget.username);
     super.initState();
   }
 

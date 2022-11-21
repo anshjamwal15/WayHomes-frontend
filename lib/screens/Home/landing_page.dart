@@ -16,8 +16,10 @@ class _LandingPageState extends State<LandingPage> {
   User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
-    HelperFunctions.saveUserEmailSharedPreference(user.email);
-    HelperFunctions.saveUserNameSharedPreference(user.displayName);
+    if(user != null) {
+      HelperFunctions.saveUserEmailSharedPreference(user.email);
+      HelperFunctions.saveUserNameSharedPreference(user.displayName);
+    }
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {

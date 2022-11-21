@@ -20,7 +20,7 @@ class _ChatCardState extends State<ChatCard> {
   @override
   void initState() {
     chats =
-        DatabaseMethods().getOtherUserChats(widget.chatroomId, widget.username);
+        FirebaseMethods().getOtherUserChats(widget.chatroomId, widget.username);
     super.initState();
   }
 

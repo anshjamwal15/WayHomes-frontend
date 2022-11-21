@@ -9,9 +9,9 @@ import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -28,32 +28,11 @@ void displayDialog(context, title, text) => showDialog(
       ),
     );
 
-Future<String> signUp(String username, String email, String password) async {
-  final response = await http.post(
-    Uri.parse('$SERVER_IP/api/auth/signup'),
-    body: jsonEncode(
-      <String, String>{
-        'username': username,
-        'email': email,
-        'password': password
-      },
-    ),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-  );
-  if (response.statusCode == 200) {
-    return response.body;
-  } else {
-    return "failed to signUp";
-  }
-}
-
 class _BodyState extends State<Body> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final DatabaseMethods databaseMethods = DatabaseMethods();
+  final FirebaseMethods databaseMethods = FirebaseMethods();
   bool _isHidden = true;
   bool login = true;
 
@@ -151,7 +130,7 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    var body = await signUp(username, email, password);
+                    var body = await UserService().signUp(username, email, password);
                     Map<String, String> userInfoMapFirebase = {
                       "name": username,
                       "email": email
@@ -260,7 +239,7 @@ class _BodyState extends State<Body> {
                 SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
                   press: () async {
-                    await DatabaseMethods().signInWithGoogle();
+                    await FirebaseMethods().signInWithGoogle();
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const LandingPage()),

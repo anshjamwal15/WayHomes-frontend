@@ -16,7 +16,7 @@ class BottomButtons extends StatefulWidget {
 }
 
 class _BottomButtonsState extends State<BottomButtons> {
-  DatabaseMethods databaseMethods = DatabaseMethods();
+  FirebaseMethods databaseMethods = FirebaseMethods();
 
   createChatroom(String userName) async {
     String name = await HelperFunctions.getUserNameSharedPreference();
