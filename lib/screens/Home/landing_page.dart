@@ -1,6 +1,7 @@
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -16,9 +17,10 @@ class _LandingPageState extends State<LandingPage> {
   User user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
-    if(user != null) {
+    if (user != null) {
       HelperFunctions.saveUserEmailSharedPreference(user.email);
       HelperFunctions.saveUserNameSharedPreference(user.displayName);
+      UserService().signUp(user.displayName, user.email, "no-password", "google");
     }
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {

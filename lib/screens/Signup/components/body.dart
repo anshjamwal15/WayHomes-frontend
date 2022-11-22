@@ -130,7 +130,8 @@ class _BodyState extends State<Body> {
                     var username = usernameController.text;
                     var email = emailController.text;
                     var password = passwordController.text;
-                    var body = await UserService().signUp(username, email, password);
+                    var body = await UserService()
+                        .signUp(username, email, password, "standard");
                     Map<String, String> userInfoMapFirebase = {
                       "name": username,
                       "email": email

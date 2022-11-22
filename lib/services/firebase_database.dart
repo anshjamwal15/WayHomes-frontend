@@ -4,27 +4,25 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseMethods {
-
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   // Google Sign-in
   Future<void> signInWithGoogle() async {
-    try{
+    try {
       final GoogleSignInAccount googleSignInAccount =
           await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication =
           await googleSignInAccount.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken
-      );
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken);
       await auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
-      print(e.toString());
       rethrow;
     }
   }
+
   // Google Sign-out
   Future<void> signOutFromGoogle() async {
     await googleSignIn.signOut();

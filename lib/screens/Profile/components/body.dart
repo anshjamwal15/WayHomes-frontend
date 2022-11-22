@@ -6,8 +6,8 @@ import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/model/profile_model.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -18,42 +18,6 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Future<Profile> profile;
-  bool profileData = false;
-  Future<Profile> fetchUserData() async {
-    final email = await HelperFunctions.getUserEmailSharedPreference();
-
-    final Uri url =
-        Uri.parse("$SERVER_IP/api/auth/user/getuserinfo?email=$email");
-
-    final response =
-        await http.get(url, headers: {"ContentType": "application/json"});
-
-    if (response.statusCode == 200) {
-      profileData = true;
-      return Profile.fromJson(jsonDecode(response.body));
-    }
-    throw Exception('Failed to fetch user');
-  }
-
-  Future<String> updateUserProfile(Map<String, String> data) async {
-    final email = await HelperFunctions.getUserEmailSharedPreference();
-
-    final Uri url =
-        Uri.parse('$SERVER_IP/api/auth/user/updateprofile?email=$email');
-
-    final response = await http.post(
-      url,
-      body: jsonEncode(data),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
-    if (response.statusCode == 200) {
-      return response.body;
-    }
-    return "Failed to update";
-  }
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -62,7 +26,7 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    profile = fetchUserData();
+    profile = UserService().fetchUserData();
     super.initState();
   }
 
@@ -182,7 +146,7 @@ class _BodyState extends State<Body> {
                               "username": username,
                               "password": password
                             };
-                            await updateUserProfile(data);
+                            await UserService().updateUserProfile(data);
                             if (email.isNotEmpty) {
                               await HelperFunctions
                                   .saveUserEmailSharedPreference(email);
