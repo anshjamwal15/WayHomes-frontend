@@ -34,7 +34,11 @@ class UserService {
     final response = await http.post(
       Uri.parse('$SERVER_IP/api/auth/signin'),
       body: jsonEncode(
-        <String, String>{'username': username, 'password': password},
+        <String, String>{
+          'username': username,
+          'password': password,
+          'type': 'standard'
+        },
       ),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
