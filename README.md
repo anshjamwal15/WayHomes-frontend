@@ -15,12 +15,6 @@ PS. UI is Heavily inspired by some good designers on github 🤪, I was unable t
 
 Please leave a ⭐ as motivation if you liked the idea 😄
 
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
-
 
 # Technologies Used
 + JAVA (backend)
@@ -30,20 +24,12 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Flutter
 
 
-###Images
-
-Image:
-
-![](https://pandao.github.io/editor.md/examples/images/4.jpg)
-
-
-
-####Ordered list
-                
-1. Item A
-2. Item B
-3. Item C
-                
+## Features
++ Explore Feed 📜
++ Real-time Messaging 💬
++ Property Upload 🌄
++ Password less signin 😄
+     
 ###FlowChart
 
 ```flow
