@@ -32,7 +32,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
      
 ### FlowChart
 
-```mermaid
+```flow
 graph TD;
     A-->B;
     A-->C;
