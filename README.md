@@ -31,6 +31,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Real-time Messaging 💬
 + Property Upload 🌄
 + Password less signin 😄
++ Customize Profile 🙅
 + Many more upcoming
      
 ## :lock: License
