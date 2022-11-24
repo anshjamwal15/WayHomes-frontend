@@ -15,7 +15,6 @@ PS. UI is Heavily inspired by some good designers on github 🤪, I was unable t
 
 Please leave a ⭐ as motivation if you liked the idea 😄
 
-
 **Table of Contents**
 
 [TOCM]
