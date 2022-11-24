@@ -1,7 +1,5 @@
 #WayHomes
 
-# Editor.md
-
 ![](https://raw.githubusercontent.com/aimbot1526/dumper-frontend/develop/assets/images/dumper-no-bg.png)
 
 
@@ -25,12 +23,8 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 [TOC]
 
 
-##![](:bowtie: :tw-1f525: :tw-1f525:stars/pandao/editor.md.svg) ![] Technologies Used
-![]https://camo.githubusercontent.com/9b8a378dc87fa678d04650bfd394ec66eae2389b1ab4a9c5faeed7b55ef65337/68747470733a2f2f70726f78696d6974792d6d6f62696c652e7765622e6170702f696d616765732f746563686e6f6c6f676965732f66697265626173652d6c6f676f2e706e67![]
-![]![]
-![]![]
-![]![]
-![]![]
+##Technologies Used
+![]https://mpng.subpng.com/20181109/oll/kisspng-java-development-kit-logo-programming-language-por-java-logo-svg-5be5b5a7384425.8069537615417809032305.jpg
 
 
 H2 Header (Underline)
