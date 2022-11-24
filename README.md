@@ -1,11 +1,11 @@
-#WayHomes
+# WayHomes
 
 ![](https://raw.githubusercontent.com/aimbot1526/dumper-frontend/develop/assets/images/dumper-no-bg.png)
 
 
 An Realestate application that does not use/share your data.
 
-### Inspiration
+## Inspiration
 
 Recently I thought to create a full stack project on my own, As I was just a backend-developer so just to improve my skills I started this project.
 
@@ -23,7 +23,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 [TOC]
 
 
-#Technologies Used
+# Technologies Used
 + JAVA (backend)
 + PostgresSQL
 + JWT+OAuth
