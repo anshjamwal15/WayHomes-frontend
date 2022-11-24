@@ -31,6 +31,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Real-time Messaging 💬
 + Property Upload 🌄
 + Password less signin 😄
++ Many more upcoming
      
 ## :lock: License
 + See [LICENSE](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
