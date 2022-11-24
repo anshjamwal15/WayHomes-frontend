@@ -30,4 +30,5 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Property Upload 🌄
 + Password less signin 😄
      
-## :smiling_face_with_three_hearts:
+## :lock: License
++ See [LICENSE](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
