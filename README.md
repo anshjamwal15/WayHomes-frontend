@@ -23,14 +23,12 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 [TOC]
 
 
-##Technologies Used
-![](https://mpng.subpng.com/20181109/oll/kisspng-java-development-kit-logo-programming-language-por-java-logo-svg-5be5b5a7384425.8069537615417809032305.jpg)
-
-
-H2 Header (Underline)
--------------
-
-
+#Technologies Used
++ JAVA (backend)
++ PostgresSQL
++ JWT+OAuth
++ Firebase
++ Flutter
 
 
 ###Images
