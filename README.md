@@ -2,8 +2,10 @@
 
 ![](https://raw.githubusercontent.com/aimbot1526/dumper-frontend/develop/assets/images/dumper-no-bg.png)
 
-
+<p align="center">
 An Realestate application that does not use/share your data.
+</p>
+
 
 ## Inspiration
 
