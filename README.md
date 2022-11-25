@@ -38,6 +38,9 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Password less signin 😄
 + Customize Profile 🙅
 + Many more upcoming :outbox_tray:
+
+## :technologist: System Design
+See [Database and backend](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
      
 ## :lock: License
 + See [LICENSE](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
