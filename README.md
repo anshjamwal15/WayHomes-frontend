@@ -6,7 +6,10 @@
 An Realestate application that does not use/share your data.
 </h3>
 
+## Socials
+
  [![General badge](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/jamwal1526)
+ [![General badge](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/aimbot1526)
 
 ## Inspiration
 
