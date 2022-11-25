@@ -37,7 +37,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Property Upload 🌄
 + Password less signin 😄
 + Customize Profile 🙅
-+ Many more upcoming
++ Many more upcoming :outbox_tray:
      
 ## :lock: License
 + See [LICENSE](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
