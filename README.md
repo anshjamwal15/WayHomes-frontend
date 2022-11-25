@@ -6,6 +6,7 @@
 An Realestate application that does not use/share your data.
 </h3>
 
+ [![General badge](https://img.shields.io/badge/<SUBJECT>-<STATUS>-<COLOR>.svg)](https://shields.io/)
 
 ## Inspiration
 
