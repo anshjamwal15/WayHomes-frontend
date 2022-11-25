@@ -5,11 +5,12 @@
 <h3 align="center">
 An Realestate application that does not use/share your data.
 </h3>
-
+https://www.buymeacoffee.com/anshjamwal
 ## Socials
 [![General badge](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/jamwal1526)
 [![General badge](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)](https://github.com/aimbot1526)
 [![General badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ansh-jamwal-995318161)
+[![General badge](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/anshjamwal)
 
 ## Inspiration
 
