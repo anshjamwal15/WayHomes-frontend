@@ -40,7 +40,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Many more upcoming :outbox_tray:
 
 ## :technologist: System Design
-See [Database and backend](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
+See [Database and backend](https://github.com/aimbot1526/dumper-backend)
      
 ## :lock: License
 + See [LICENSE](https://github.com/aimbot1526/dumper-frontend/blob/develop/LICENSE.md)
