@@ -12,7 +12,7 @@ An Realestate application that does not use/share your data.
 [![General badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ansh-jamwal-995318161)
 [![General badge](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/anshjamwal)
 
-## Inspiration
+## :raised_hands: Inspiration
 
 Recently I thought to create a full stack project on my own, As I was just a backend-developer so just to improve my skills I started this project.
 
@@ -23,7 +23,7 @@ PS. UI is Heavily inspired by some good designers on github 🤪, I was unable t
 Please leave a ⭐ as motivation if you liked the idea 😄
 
 
-# Technologies Used
+# :hammer_and_wrench: Technologies Used
 + JAVA (backend)
 + PostgresSQL
 + JWT+OAuth
@@ -31,7 +31,7 @@ Please leave a ⭐ as motivation if you liked the idea 😄
 + Flutter
 
 
-## Features
+## :rocket: Features
 + Explore Feed 📜
 + Real-time Messaging 💬
 + Property Upload 🌄
