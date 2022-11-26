@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/components/global_app_bar.dart';
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/data/dummy_data.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/model/profile_model.dart';
 import 'package:dumper/services/helper_functions.dart';
@@ -77,7 +78,7 @@ class _BodyState extends State<Body> {
                                 shape: BoxShape.circle,
                                 image: const DecorationImage(
                                   fit: BoxFit.cover,
-                                  image: NetworkImage(image),
+                                  image: NetworkImage(myUrlAvatar),
                                 )),
                           ),
                           Positioned(

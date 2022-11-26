@@ -1,15 +1,21 @@
+import 'package:dumper/model/category_model.dart';
 import 'package:flutter/material.dart';
-
+import '../../../services/property_service.dart';
 import '../../../constants/constants.dart';
 
 class Categories extends StatefulWidget {
-  const Categories({Key key}) : super(key: key);
-
+  Categories({Key key, this.categoriesList}) : super(key: key);
+  List<CategoryModel> categoriesList;
   @override
   _CategoriesState createState() => _CategoriesState();
 }
 
 class _CategoriesState extends State<Categories> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int selectedCategoryIndex = 0;
   List<String> categoryList = [
     'For Sale',
@@ -37,7 +43,7 @@ class _CategoriesState extends State<Categories> {
           ),
           child: Center(
             child: Text(
-              categoryList[index],
+              widget.categoriesList[index].name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: selectedCategoryIndex == index ? white : black,
@@ -63,7 +69,7 @@ class _CategoriesState extends State<Categories> {
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
-          itemCount: categoryList.length,
+          itemCount: widget.categoriesList.length,
           itemBuilder: (context, index) {
             return _buildCategory(context, index);
           },

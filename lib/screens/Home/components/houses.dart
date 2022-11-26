@@ -23,7 +23,7 @@ class _HousesState extends State<Houses> {
   Future<bool> getData() async {
     final email = await HelperFunctions.getUserEmailSharedPreference();
 
-    final Uri url = Uri.parse("$SERVER_IP/api/auth/property/all?email=$email");
+    final Uri url = Uri.parse("$SERVER_IP/api/auth/property/all?email=$email&tag=");
 
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});
