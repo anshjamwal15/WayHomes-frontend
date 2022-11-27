@@ -16,12 +16,6 @@ class _CategoriesState extends State<Categories> {
   }
 
   int selectedCategoryIndex = 0;
-  List<String> categoryList = [
-    'For Sale',
-    '3-4 bed room',
-    'Garages',
-    'Modular kitchen'
-  ];
 
   Widget _buildCategory(BuildContext context, int index) {
     return GestureDetector(

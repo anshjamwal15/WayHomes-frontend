@@ -13,8 +13,8 @@ import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key key}) : super(key: key);
-
+  Body({Key key, this.propertyList}) : super(key: key);
+  List<Content> propertyList;
   @override
   _BodyState createState() => _BodyState();
 }
@@ -25,7 +25,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   String username = '';
   String email = '';
   List<CategoryModel> categoriesList;
-  List<Content> propertyList = [];
+
   @override
   void initState() {
     HelperFunctions.getUserNameSharedPreference().then((value) => {
@@ -42,9 +42,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       setState(() {
         categoriesList = value;
       });
-    });
-    PropertyService().getProperties().then((value) {
-      propertyList = value.content;
     });
     super.initState();
   }
@@ -157,8 +154,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               categoriesList != null
                   ? Categories(categoriesList: categoriesList)
                   : const Opacity(opacity: 0.64),
-              propertyList != null
-                  ? Houses(propertyList: propertyList)
+              widget.propertyList != null
+                  ? Houses(propertyList: widget.propertyList)
                   : const Opacity(opacity: 0.64),
             ],
           ),

@@ -56,7 +56,7 @@ class _HousesState extends State<Houses> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    if (widget.propertyList.isNotEmpty) {
+    // if (widget.propertyList.isNotEmpty) {
       return Expanded(
         child: FutureBuilder<Content>(
           builder: (context, snapshot) {
@@ -181,8 +181,8 @@ class _HousesState extends State<Houses> {
           },
         ),
       );
-    } else {
-      return const CircularProgressIndicator();
-    }
+    // } else {
+    //   return const CircularProgressIndicator();
+    // }
   }
 }
