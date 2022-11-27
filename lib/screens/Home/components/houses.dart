@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Houses extends StatefulWidget {
-  const Houses({Key key}) : super(key: key);
-
+  Houses({Key key, this.propertyList}) : super(key: key);
+  List<Content> propertyList;
   @override
   _HousesState createState() => _HousesState();
 }
@@ -49,30 +49,29 @@ class _HousesState extends State<Houses> {
 
   @override
   void initState() {
-    // print(DatabaseMethods().propImage(48));
     super.initState();
-    getData();
+    // getData();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    if (_property.isNotEmpty) {
+    if (widget.propertyList.isNotEmpty) {
       return Expanded(
         child: FutureBuilder<Content>(
           builder: (context, snapshot) {
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: _property.length,
+              itemCount: widget.propertyList.length,
               itemBuilder: (context, index) {
-                final data = _property[index];
+                final data = widget.propertyList[index];
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => DetailsScreen(
-                          house: _property[index],
+                          house: widget.propertyList[index],
                         ),
                       ),
                     );

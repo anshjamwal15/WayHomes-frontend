@@ -1,6 +1,5 @@
 import 'package:dumper/model/category_model.dart';
 import 'package:flutter/material.dart';
-import '../../../services/property_service.dart';
 import '../../../constants/constants.dart';
 
 class Categories extends StatefulWidget {

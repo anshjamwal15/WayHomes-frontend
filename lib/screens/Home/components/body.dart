@@ -5,6 +5,7 @@ import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:dumper/model/category_model.dart';
+import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   String username = '';
   String email = '';
   List<CategoryModel> categoriesList;
+  List<Content> propertyList = [];
   @override
   void initState() {
     HelperFunctions.getUserNameSharedPreference().then((value) => {
@@ -40,6 +42,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       setState(() {
         categoriesList = value;
       });
+    });
+    PropertyService().getProperties().then((value) {
+      propertyList = value.content;
     });
     super.initState();
   }
@@ -152,7 +157,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               categoriesList != null
                   ? Categories(categoriesList: categoriesList)
                   : const Opacity(opacity: 0.64),
-              const Houses(),
+              propertyList != null
+                  ? Houses(propertyList: propertyList)
+                  : const Opacity(opacity: 0.64),
             ],
           ),
           const BottomButtons(),
