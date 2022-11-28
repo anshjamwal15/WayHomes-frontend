@@ -13,8 +13,7 @@ import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
-  Body({Key key, this.propertyList}) : super(key: key);
-  List<Content> propertyList;
+  Body({Key key}) : super(key: key);
   @override
   _BodyState createState() => _BodyState();
 }
@@ -154,9 +153,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
               categoriesList != null
                   ? Categories(categoriesList: categoriesList)
                   : const Opacity(opacity: 0.64),
-              widget.propertyList != null
-                  ? Houses(propertyList: widget.propertyList)
-                  : const Opacity(opacity: 0.64),
+              Houses(),
             ],
           ),
           const BottomButtons(),

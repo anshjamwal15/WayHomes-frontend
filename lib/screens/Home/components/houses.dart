@@ -5,41 +5,29 @@ import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/home_page_service.dart';
+import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class Houses extends StatefulWidget {
-  Houses({Key key, this.propertyList}) : super(key: key);
-  List<Content> propertyList;
+  Houses({Key key}) : super(key: key);
   @override
   _HousesState createState() => _HousesState();
 }
 
 class _HousesState extends State<Houses> {
-  int currentPage = 1;
-
   List<Content> _property = [];
 
-  Future<bool> getData() async {
+  Future<void> getProperties() async {
     final email = await HelperFunctions.getUserEmailSharedPreference();
-
-    final Uri url = Uri.parse("$SERVER_IP/api/auth/property/all?email=$email&tag=");
-
+    final Uri url =
+        Uri.parse("$SERVER_IP/api/auth/property/all?email=$email&tag=");
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});
-
     if (response.statusCode == 200) {
       final result = propertyModelFromJson(response.body);
-
       _property = result.content;
-
-      currentPage++;
-
       setState(() {});
-
-      return true;
-    } else {
-      return false;
     }
   }
 
@@ -50,28 +38,28 @@ class _HousesState extends State<Houses> {
   @override
   void initState() {
     super.initState();
-    // getData();
+    getProperties();
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // if (widget.propertyList.isNotEmpty) {
+    if (_property.isNotEmpty) {
       return Expanded(
         child: FutureBuilder<Content>(
           builder: (context, snapshot) {
             return ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: widget.propertyList.length,
+              itemCount: _property.length,
               itemBuilder: (context, index) {
-                final data = widget.propertyList[index];
+                final data = _property[index];
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => DetailsScreen(
-                          house: widget.propertyList[index],
+                          house: _property[index],
                         ),
                       ),
                     );
@@ -181,8 +169,8 @@ class _HousesState extends State<Houses> {
           },
         ),
       );
-    // } else {
-    //   return const CircularProgressIndicator();
-    // }
+    } else {
+      return const CircularProgressIndicator();
+    }
   }
 }

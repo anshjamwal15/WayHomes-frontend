@@ -17,7 +17,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   bool _loading = true;
   User user = FirebaseAuth.instance.currentUser;
-  List<Content> propertyList = [];
   @override
   void initState() {
     if (user != null) {
@@ -26,9 +25,6 @@ class _LandingPageState extends State<LandingPage> {
       UserService()
           .signUp(user.displayName, user.email, "no-password", "google");
     }
-    PropertyService().getProperties().then((value) {
-      propertyList = value.content;
-    });
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
@@ -45,7 +41,7 @@ class _LandingPageState extends State<LandingPage> {
           : Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Body(propertyList: propertyList),
+                Body(),
               ],
             ),
     );

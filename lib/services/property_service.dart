@@ -15,15 +15,4 @@ class PropertyService {
     }
     return <CategoryModel>[];
   }
-
-  Future<PropertyModel> getProperties() async {
-    final email = await HelperFunctions.getUserEmailSharedPreference();
-    final Uri url = Uri.parse("$SERVER_IP/api/auth/property/all?email=$email&tag=");
-    final response = await http.get(url, headers: {"ContentType": "application/json"});
-    if(response.statusCode == 200) {
-      final result = propertyModelFromJson(response.body);
-      return result;
-    }
-    return propertyModelFromJson(response.body);
-  }
 }

@@ -35,6 +35,9 @@
 # Visual Studio Code related
 .vscode
 
+## Jetbrains fleet related
+.fleet
+
 # Android Releated
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
@@ -57,3 +60,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
