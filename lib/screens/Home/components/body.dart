@@ -1,11 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
-import 'package:dumper/Screens/Home/components/categories.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:dumper/model/category_model.dart';
-import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
@@ -151,9 +149,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                 ),
               ),
               categoriesList != null
-                  ? Categories(categoriesList: categoriesList)
-                  : const Opacity(opacity: 0.64),
-              Houses(),
+                  ? Expanded(
+                      child: Houses(categoriesList: categoriesList),
+                    )
+                  : const CircularProgressIndicator(),
             ],
           ),
           const BottomButtons(),
