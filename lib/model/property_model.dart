@@ -83,7 +83,7 @@ class Content {
     String description;
     String address;
     bool isFav;
-    User user;
+    Seller user;
     int id;
     List<PropertyImage> propertyImages;
 
@@ -96,7 +96,7 @@ class Content {
         description: json["description"],
         address: json["address"],
         isFav: json["isFav"],
-        user: User.fromJson(json["user"]),
+        user: Seller.fromJson(json["user"]),
         id: json["id"],
         propertyImages: List<PropertyImage>.from(json["propertyImages"].map((x) => PropertyImage.fromJson(x))),
     );
@@ -140,8 +140,8 @@ class PropertyImage {
     };
 }
 
-class User {
-    User({
+class Seller {
+    Seller({
         this.firstName,
         this.lastName,
         this.email,
@@ -155,7 +155,7 @@ class User {
     String username;
     dynamic roles;
 
-    factory User.fromJson(Map<String, dynamic> json) => User(
+    factory Seller.fromJson(Map<String, dynamic> json) => Seller(
         firstName: json["firstName"],
         lastName: json["lastName"],
         email: json["email"],

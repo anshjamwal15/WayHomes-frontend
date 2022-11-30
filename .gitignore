@@ -30,9 +30,13 @@
 .pub-cache/
 .pub/
 /build/
+/lib/firebase_options.dart
 
 # Visual Studio Code related
 .vscode
+
+## Jetbrains fleet related
+.fleet
 
 # Android Releated
 **/android/**/gradle-wrapper.jar
@@ -56,3 +60,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+

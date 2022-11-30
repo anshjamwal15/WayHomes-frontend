@@ -1,5 +1,4 @@
 import 'package:dumper/main.dart';
-import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,10 +18,4 @@ class HomePageService {
     return false;
   }
 
-  // static Stream<List<Content>> getNewData(Duration refreshTime) async* {
-  //   while (true) {
-  //     await Future.delayed(refreshTime);
-  //     yield await getData();
-  //   }
-  // }
 }
