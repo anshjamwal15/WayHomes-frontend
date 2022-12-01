@@ -1,5 +1,6 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/dummy_data.dart';
@@ -73,10 +74,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () async {
-                      final SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      preferences.remove('email');
+                    onClicked: () {
+                      LoginService().authSignOut();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

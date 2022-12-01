@@ -1,33 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseMethods {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
-
-  // Google Sign-in
-  Future<void> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount googleSignInAccount =
-          await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
-      final AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken);
-      await auth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      rethrow;
-    }
-  }
-
-  // Google Sign-out
-  Future<void> signOutFromGoogle() async {
-    await googleSignIn.signOut();
-    await auth.signOut();
-  }
 
   uploadUserInfo(userMap) {
     FirebaseFirestore.instance.collection("users").add(userMap);

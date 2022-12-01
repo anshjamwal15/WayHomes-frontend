@@ -8,6 +8,7 @@ import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/services/firebase_database.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
@@ -235,17 +236,24 @@ class _BodyState extends State<Body> {
                 ),
                 SocialIcon(
                   iconSrc: "assets/icons/twitter.svg",
-                  press: () {},
+                  press: () async {
+                    await LoginService().singInWithTwitter();
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LandingPage(loginType: "twitter")),
+                        (Route<dynamic> route) => false);
+                  },
                 ),
                 SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
                   press: () async {
-                    await FirebaseMethods().signInWithGoogle();
+                    await LoginService().signInWithGoogle();
                     Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LandingPage()),
-                      (Route<dynamic> route) => false,
-                    );
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LandingPage(loginType: "google")),
+                        (Route<dynamic> route) => false);
                   },
                 )
               ],
