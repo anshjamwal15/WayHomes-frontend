@@ -40,13 +40,5 @@ class LoginService {
       secret: DefaultFirebaseOptions.twitterApiSecret,
     );
     await auth.signInWithCredential(credential);
-    // final authResult = await twitterLogin.login();
-    // if (TwitterLoginStatus.loggedIn != null) {
-    //   final AuthCredential twitterAuthCredential =
-    //       TwitterAuthProvider.credential(
-    //           accessToken: authResult.authToken,
-    //           secret: authResult.authTokenSecret,);
-    //   await auth.signInWithCredential(twitterAuthCredential);
-    // }
   }
 }
