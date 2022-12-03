@@ -74,8 +74,8 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                   buildMenuItem(
                     text: 'Logout',
                     icon: Icons.logout,
-                    onClicked: () {
-                      LoginService().authSignOut();
+                    onClicked: () async {
+                      await LoginService().authSignOut();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

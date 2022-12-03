@@ -2,19 +2,14 @@ import 'package:dumper/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:twitter_login/entity/auth_result.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 class LoginService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
-  final TwitterLogin twitterLogin = TwitterLogin(
-    apiKey: DefaultFirebaseOptions.twitterApiKey,
-    apiSecretKey: DefaultFirebaseOptions.twitterApiSecret,
-    redirectURI: DefaultFirebaseOptions.twitterCallbackUrl,
-  );
-
   // Google Sign-in
-  Future<void> signInWithGoogle() async {
+  Future<User> signInWithGoogle() async {
     try {
       final GoogleSignInAccount googleSignInAccount =
           await googleSignIn.signIn();
@@ -24,9 +19,10 @@ class LoginService {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken);
       await auth.signInWithCredential(credential);
-    } on FirebaseAuthException catch (e) {
-      rethrow;
+    } catch (e) {
+      return auth.currentUser;
     }
+    return auth.currentUser;
   }
 
   // Google Sign-out
@@ -39,7 +35,12 @@ class LoginService {
   }
 
   // Twitter Login
-  Future<void> singInWithTwitter() async {
+  Future<AuthResult> singInWithTwitter() async {
+    final TwitterLogin twitterLogin = TwitterLogin(
+      apiKey: DefaultFirebaseOptions.twitterApiKey,
+      apiSecretKey: DefaultFirebaseOptions.twitterApiSecret,
+      redirectURI: DefaultFirebaseOptions.twitterCallbackUrl,
+    );
     final authResult = await twitterLogin.loginV2();
     if (authResult.status == TwitterLoginStatus.loggedIn) {
       final AuthCredential credential = TwitterAuthProvider.credential(
@@ -48,5 +49,6 @@ class LoginService {
       );
       await auth.signInWithCredential(credential);
     }
+    return authResult;
   }
 }

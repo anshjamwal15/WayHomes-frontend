@@ -86,4 +86,9 @@ class UserService {
     }
     throw Exception('Failed to fetch user');
   }
+
+  // Validation
+  Future getValidation() async {
+    return await HelperFunctions.getUserNameSharedPreference();
+  }
 }

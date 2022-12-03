@@ -1,13 +1,16 @@
+import 'dart:async';
+
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
+import 'package:dumper/screens/Login/login_screen.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
-  LandingPage({Key key, this.loginType}) : super(key: key);
-  String loginType;
+  const LandingPage({Key key, this.loginType}) : super(key: key);
+  final String loginType;
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -15,7 +18,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   bool _loading = true;
   User user = FirebaseAuth.instance.currentUser;
-
   @override
   void initState() {
     if (user != null) {
@@ -34,12 +36,12 @@ class _LandingPageState extends State<LandingPage> {
             user.displayName, user.email, "no-password", widget.loginType);
       }
     }
-    super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _loading = false;
       });
     });
+    super.initState();
   }
 
   @override
