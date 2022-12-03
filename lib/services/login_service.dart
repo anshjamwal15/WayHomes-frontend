@@ -7,6 +7,11 @@ import 'package:twitter_login/twitter_login.dart';
 class LoginService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  final TwitterLogin twitterLogin = TwitterLogin(
+    apiKey: DefaultFirebaseOptions.twitterApiKey,
+    apiSecretKey: DefaultFirebaseOptions.twitterApiSecret,
+    redirectURI: DefaultFirebaseOptions.twitterCallbackUrl,
+  );
 
   // Google Sign-in
   Future<void> signInWithGoogle() async {
@@ -35,10 +40,13 @@ class LoginService {
 
   // Twitter Login
   Future<void> singInWithTwitter() async {
-    final AuthCredential credential = TwitterAuthProvider.credential(
-      accessToken: DefaultFirebaseOptions.twitterApiKey,
-      secret: DefaultFirebaseOptions.twitterApiSecret,
-    );
-    await auth.signInWithCredential(credential);
+    final authResult = await twitterLogin.loginV2();
+    if (authResult.status == TwitterLoginStatus.loggedIn) {
+      final AuthCredential credential = TwitterAuthProvider.credential(
+        accessToken: DefaultFirebaseOptions.twitterApiKey,
+        secret: DefaultFirebaseOptions.twitterApiSecret,
+      );
+      await auth.signInWithCredential(credential);
+    }
   }
 }

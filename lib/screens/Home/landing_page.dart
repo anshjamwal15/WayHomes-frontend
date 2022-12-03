@@ -1,14 +1,12 @@
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
-import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
-import 'package:dumper/services/property_service.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
-  LandingPage({Key key,this.loginType}) : super(key: key);
+  LandingPage({Key key, this.loginType}) : super(key: key);
   String loginType;
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -23,14 +21,17 @@ class _LandingPageState extends State<LandingPage> {
     if (user != null) {
       HelperFunctions.saveUserEmailSharedPreference(user.email);
       HelperFunctions.saveUserNameSharedPreference(user.displayName);
-      if(widget.loginType != null && widget.loginType == "google") {
-        UserService().signUp(user.displayName, user.email, "no-password", widget.loginType);
+      if (widget.loginType != null && widget.loginType == "google") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
       }
-      if(widget.loginType != null && widget.loginType == "twitter") {
-        UserService().signUp(user.displayName, user.email, "no-password", widget.loginType);
+      if (widget.loginType != null && widget.loginType == "twitter") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
       }
-      if(widget.loginType != null && widget.loginType == "facebook") {
-        UserService().signUp(user.displayName, user.email, "no-password", widget.loginType);
+      if (widget.loginType != null && widget.loginType == "facebook") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
       }
     }
     super.initState();
