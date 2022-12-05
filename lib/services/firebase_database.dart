@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseMethods {
-
   uploadUserInfo(userMap) {
     FirebaseFirestore.instance.collection("users").add(userMap);
   }
 
-  Future<bool> createChatRoom(chatRoom, chatRoomId) {
+  Future<void> createChatRoom(chatRoom, chatRoomId) async {
     FirebaseFirestore.instance
         .collection("ChatRoom")
         .doc(chatRoomId)
@@ -49,6 +45,13 @@ class FirebaseMethods {
         .catchError((e) {
       print(e.toString());
     });
+  }
+
+  getMessageCount(String username) {
+    return FirebaseFirestore.instance
+        .collection("ChatRoom")
+        .where('users', arrayContains: username)
+        .get();
   }
 
   getUserChats(String myUsername) {

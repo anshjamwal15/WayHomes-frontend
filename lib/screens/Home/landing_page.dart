@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
-import 'package:dumper/screens/Login/login_screen.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

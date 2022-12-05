@@ -1,17 +1,13 @@
-import 'dart:convert';
-
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Signup/signup_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/constants/roles_list.dart';
-import 'package:dumper/main.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:http/http.dart' as http;
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -125,10 +121,13 @@ class _BodyState extends State<Body> {
                   onPressed: () async {
                     var username = usernameController.text;
                     var password = passwordController.text;
-                    var body = await UserService().logInAttempt(username, password);
+                    var body =
+                        await UserService().logInAttempt(username, password);
                     Role.setString(body['roles'][0]);
-                    HelperFunctions.saveUserEmailSharedPreference(body['email']);
-                    HelperFunctions.saveUserNameSharedPreference(body['username']);
+                    HelperFunctions.saveUserEmailSharedPreference(
+                        body['email']);
+                    HelperFunctions.saveUserNameSharedPreference(
+                        body['username']);
                     if (body == "failed to login") {
                       displayDialog(context, "An error Occurred",
                           "No account was found matching that username and password");

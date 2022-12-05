@@ -137,7 +137,8 @@ class _BodyState extends State<Body> {
                         .signUp(username, email, password, "standard");
                     Map<String, String> userInfoMapFirebase = {
                       "name": username,
-                      "email": email
+                      "email": email,
+                      "role": "ROLE_USER"
                     };
                     databaseMethods.uploadUserInfo(userInfoMapFirebase);
                     HelperFunctions.saveUserEmailSharedPreference(email);
