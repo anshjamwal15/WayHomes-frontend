@@ -17,6 +17,8 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   bool _loading = true;
   User user = FirebaseAuth.instance.currentUser;
+  String username;
+  String email;
   @override
   void initState() {
     if (user != null) {
@@ -35,6 +37,16 @@ class _LandingPageState extends State<LandingPage> {
             user.displayName, user.email, "no-password", widget.loginType);
       }
     }
+    HelperFunctions.getUserNameSharedPreference().then((value) {
+      setState(() {
+        username = value;
+      });
+    });
+    HelperFunctions.getUserEmailSharedPreference().then((value) {
+      setState(() {
+        email = value;
+      });
+    });
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _loading = false;
@@ -51,7 +63,7 @@ class _LandingPageState extends State<LandingPage> {
           : Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Body(),
+                Body(username: username, email: email),
               ],
             ),
     );

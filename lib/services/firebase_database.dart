@@ -43,15 +43,17 @@ class FirebaseMethods {
         .collection("chats")
         .add(chatMessageData)
         .catchError((e) {
-      print(e.toString());
+      throw e;
     });
   }
 
-  getMessageCount(String username) {
-    return FirebaseFirestore.instance
+  Future getMessageCount(String username) async {
+    QuerySnapshot documentCount = await FirebaseFirestore.instance
         .collection("ChatRoom")
-        .where('users', arrayContains: username)
+        .where('users', arrayContains: "radha")
         .get();
+    List<DocumentSnapshot> messageCount = documentCount.docs;
+    return messageCount.length;
   }
 
   getUserChats(String myUsername) {
