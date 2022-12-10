@@ -24,9 +24,14 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
   int incomingMessages;
   List<CategoryModel> categoriesList;
-
+  String role;
   @override
   void initState() {
+    HelperFunctions.getUserRoleSharedPreference().then((value) {
+      setState(() {
+        role = value;
+      });
+    });
     FirebaseMethods().getMessageCount(widget.username).then((value) {
       setState(() {
         incomingMessages = value;
@@ -80,8 +85,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                               },
                             ),
                           ),
-                          Role.getString() == Role.modRole &&
-                                  incomingMessages != null
+                          role == Role.modRole && incomingMessages != null
                               ? Container(
                                   height: 50,
                                   width: 50,

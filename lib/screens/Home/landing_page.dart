@@ -63,7 +63,9 @@ class _LandingPageState extends State<LandingPage> {
           : Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Body(username: username, email: email),
+                username != null && email != null
+                    ? Body(username: username, email: email)
+                    : const Opacity(opacity: 0.64),
               ],
             ),
     );

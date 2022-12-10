@@ -123,12 +123,9 @@ class _BodyState extends State<Body> {
                     var password = passwordController.text;
                     var body =
                         await UserService().logInAttempt(username, password);
-                    Role.setString(body['roles'][0]);
-                    HelperFunctions.saveUserEmailSharedPreference(
-                        body['email']);
-                    HelperFunctions.saveUserNameSharedPreference(
-                        body['username']);
+                    HelperFunctions.saveUserInfo(body);
                     if (body == "failed to login") {
+                      // ignore: use_build_context_synchronously
                       displayDialog(context, "An error Occurred",
                           "No account was found matching that username and password");
                     } else {
@@ -139,12 +136,6 @@ class _BodyState extends State<Body> {
                         ),
                       );
                     }
-                    // if (body) {
-
-                    // } else {
-                    //   displayDialog(context, "An Error Occurred",
-                    //       "No account was found matching that username and password");
-                    // }
                   },
                 ),
               ),

@@ -5,6 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:dumper/model/profile_model.dart';
 
 class UserService {
+  // Validation
+  Future getValidation() async {
+    return await HelperFunctions.getUserNameSharedPreference();
+  }
+
   // Sign-Up
   Future<String> signUp(
       String username, String email, String password, String type) async {
@@ -87,8 +92,15 @@ class UserService {
     throw Exception('Failed to fetch user');
   }
 
-  // Validation
-  Future getValidation() async {
-    return await HelperFunctions.getUserNameSharedPreference();
+  // Get Liked Properties
+  Future<String> getLikedProerpties(String id) async {
+    final Uri url = Uri.parse("$SERVER_IP/api/auth/user/likedproperties/$id");
+    final response =
+        await http.get(url, headers: {"ContentType": "application/json"});
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
   }
 }
