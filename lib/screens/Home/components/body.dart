@@ -8,6 +8,7 @@ import 'package:dumper/model/category_model.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';
@@ -27,6 +28,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   String role;
   @override
   void initState() {
+    // UserService().getLikedProerpties()
     HelperFunctions.getUserRoleSharedPreference().then((value) {
       setState(() {
         role = value;

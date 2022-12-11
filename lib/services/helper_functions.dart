@@ -12,7 +12,12 @@ class HelperFunctions {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String email = body['email'];
     String username = body['username'];
-    String role = body['roles'][0];
+    String role;
+    if (body['roles'] != null) {
+      role = body['roles'][0];
+    } else {
+      role = body['role'];
+    }
     int id = body['id'];
     await preferences.setString(sharedPreferenceUserNameKey, username);
     await preferences.setString(sharedPreferenceUserEmailKey, email);

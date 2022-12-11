@@ -11,7 +11,7 @@ class UserService {
   }
 
   // Sign-Up
-  Future<String> signUp(
+  Future<Map<String, dynamic>> signUp(
       String username, String email, String password, String type) async {
     final response = await http.post(
       Uri.parse('$SERVER_IP/api/auth/signup'),
@@ -27,10 +27,13 @@ class UserService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    // if (type == "google" || type == "twitter" || type == "facebook") {
+    //   HelperFunctions.saveUserInfo(json.decode(response.body));
+    // }
     if (response.statusCode == 200) {
-      return response.body;
+      return json.decode(response.body);
     }
-    return "Failed to Sign-up";
+    return json.decode(response.body);
   }
 
   // Log-In
