@@ -4,7 +4,6 @@ import 'package:dumper/main.dart';
 import 'package:dumper/model/fav_house_model.dart';
 import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
-import 'package:dumper/services/home_page_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,8 +20,8 @@ class FavHousesState extends State<FavHouses> {
   Future<List<FavHouseModel>> propertyFuture;
   Future<List<FavHouseModel>> getProperties() async {
     final email = await HelperFunctions.getUserEmailSharedPreference();
-    Uri url = Uri.parse(
-        "$SERVER_IP/api/auth/property/likedproperties?email=yoko@gmail.com");
+    Uri url =
+        Uri.parse("$SERVER_IP/api/auth/user/likedproperties?email=$email");
     final response =
         await http.get(url, headers: {"ContentType": "application/json"});
     if (response.statusCode == 200) {
@@ -51,43 +50,39 @@ class FavHousesState extends State<FavHouses> {
         children: [
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: appPadding,
-                  right: appPadding,
-                  top: appPadding * 2,
-                ),
-                child: SizedBox(
-                  height: size.height * 0.22,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'City',
-                            style: TextStyle(
-                                color: kPrimaryColor.withOpacity(0.4),
-                                fontSize: 18),
-                          ),
-                          SizedBox(height: size.height * 0.01),
-                          const Text(
-                            'Noida',
-                            style: TextStyle(
-                              color: kPrimaryColor,
-                              fontSize: 36,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //     left: appPadding,
+              //     right: appPadding,
+              //     top: appPadding,
+              //   ),
+              //   child: SizedBox(
+              //     height: size.height * 0.1,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         InkWell(
+              //           onTap: () {
+              //             Navigator.pop(context);
+              //           },
+              //           child: Container(
+              //             height: 50,
+              //             width: 50,
+              //             decoration: BoxDecoration(
+              //               color: white,
+              //               border: Border.all(color: white.withOpacity(0.4)),
+              //               borderRadius: BorderRadius.circular(15),
+              //             ),
+              //             child: const Icon(
+              //               Icons.arrow_back_rounded,
+              //               color: kPrimaryColor,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: FutureBuilder(
                   future: propertyFuture,
@@ -99,13 +94,15 @@ class FavHousesState extends State<FavHouses> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             final data = snapshot.data[index];
+                            final detailData =
+                                Content.mapHouseData(data.property);
                             return GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => DetailsScreen(
-                                      house: snapshot.data[index],
+                                      house: detailData,
                                     ),
                                   ),
                                 );
@@ -126,48 +123,18 @@ class FavHousesState extends State<FavHouses> {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             child: SizedBox(
-                                              child: showImage(
-                                                  data.propertyImages[0].path),
+                                              child: showImage(data.property
+                                                  .propertyImages[0].path),
                                               height: 200,
                                               width: size.width,
                                             ),
                                           ),
-                                          Positioned(
-                                            right: appPadding / 2,
-                                            top: appPadding / 2,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: white,
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                              ),
-                                              child: IconButton(
-                                                icon: data.isFav
-                                                    ? const Icon(
-                                                        Icons.favorite_rounded,
-                                                        color: kPrimaryColor,
-                                                      )
-                                                    : const Icon(
-                                                        Icons
-                                                            .favorite_border_rounded,
-                                                        color: kPrimaryColor,
-                                                      ),
-                                                onPressed: () {
-                                                  HomePageService
-                                                      .likeAndDislike(data.id);
-                                                  setState(() {
-                                                    data.isFav = !data.isFav;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                          )
                                         ],
                                       ),
                                       Row(
                                         children: [
                                           Text(
-                                            '\₹${data.price}',
+                                            '\₹${data.property.price}',
                                             style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold,
@@ -178,7 +145,7 @@ class FavHousesState extends State<FavHouses> {
                                           ),
                                           Expanded(
                                             child: Text(
-                                              data.description,
+                                              data.property.description,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                   fontSize: 15,
@@ -191,21 +158,21 @@ class FavHousesState extends State<FavHouses> {
                                       Row(
                                         children: [
                                           Text(
-                                            '${data.bedrooms} bedrooms / ',
+                                            '${data.property.bedrooms} bedrooms / ',
                                             style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
                                           Text(
-                                            ' ${data.bathrooms} bathrooms / ',
+                                            ' ${data.property.bathrooms} bathrooms / ',
                                             style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
                                             ),
                                           ),
                                           Text(
-                                            ' ${data.sqFeet} sqft  ',
+                                            ' ${data.property.sqFeet} sqft  ',
                                             style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,

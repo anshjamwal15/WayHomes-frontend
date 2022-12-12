@@ -54,32 +54,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ),
               ),
             ),
-            // Container(
-            //   height: 50,
-            //   width: 50,
-            //   decoration: BoxDecoration(
-            //     color: white,
-            //     border: Border.all(color: white.withOpacity(0.4)),
-            //     borderRadius: BorderRadius.circular(15),
-            //   ),
-            //   child: IconButton(
-            //     icon: widget.isFav
-            //         ? const Icon(
-            //       Icons.favorite_rounded,
-            //       color: kPrimaryColor,
-            //     )
-            //         : const Icon(
-            //       Icons.favorite_border_rounded,
-            //       color: kPrimaryColor,
-            //     ),
-            //     onPressed: () {
-            //       HomePageService.likeAndDislike(id);
-            //       setState(() {
-            //         fav = !fav;
-            //       });
-            //     },
-            //   ),
-            // )
           ],
         ),
       ),
