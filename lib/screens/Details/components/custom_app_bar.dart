@@ -3,7 +3,7 @@ import 'package:dumper/services/home_page_service.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key key, this.isFav,this.id}) : super(key: key);
+  const CustomAppBar({Key key, this.isFav, this.id}) : super(key: key);
   final int id;
   final bool isFav;
 
@@ -12,7 +12,6 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-
   bool fav;
   int id;
   @override
