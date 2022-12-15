@@ -15,7 +15,6 @@ class CarouselImages extends StatefulWidget {
 }
 
 class _CarouselImagesState extends State<CarouselImages> {
-
   List<dynamic> imgs = [];
 
   int _current = 0;
@@ -30,10 +29,11 @@ class _CarouselImagesState extends State<CarouselImages> {
     imgs = widget.house.propertyImages.map((e) => showImage(e.path)).toList();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: size.height * 0.265,
       child: Carousel(
         images: imgs,
@@ -47,26 +47,6 @@ class _CarouselImagesState extends State<CarouselImages> {
             _current = index;
           });
         },
-        // images: [
-          
-
-          
-        //   // showImage(widget.house.propertyImages[0].data),
-        //   // showImage(widget.house.propertyImages[1].data),
-        //   // showImage(widget._houseDetails.singleProperty.propertyImages[1].data),
-        //   // NetworkImage(
-        //   //   widget.imagesListUrl[0],
-        //   // ),
-        //   // NetworkImage(
-        //   //   widget.imagesListUrl[0],
-        //   // ),
-        //   // NetworkImage(
-        //   //   widget.imagesListUrl[0],
-        //   // ),
-        //   // NetworkImage(
-        //   //   widget.imagesListUrl[0],
-        //   // ),
-        // ],
       ),
     );
   }

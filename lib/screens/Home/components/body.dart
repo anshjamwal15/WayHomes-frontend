@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/Screens/seller_messages/chats_screen.dart';
@@ -8,7 +7,6 @@ import 'package:dumper/model/category_model.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
-import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';

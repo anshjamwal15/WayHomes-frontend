@@ -119,8 +119,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       setState(() {
         messageEditingController.text = "";
       });
-    } else {
-      print("Controller not working");
     }
   }
 
