@@ -30,8 +30,9 @@ class _BottomButtonsState extends State<BottomButtons> {
       "chatroomId": chatRoomId,
       "time": DateTime.now()
     };
-    databaseMethods.createChatRoom(chatRoomMap, chatRoomId);
+    await databaseMethods.createChatRoom(chatRoomMap, chatRoomId);
 
+    // ignore: use_build_context_synchronously
     Navigator.push(
       context,
       MaterialPageRoute(

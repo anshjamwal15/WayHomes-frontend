@@ -158,7 +158,7 @@ class _BodyState extends State<Body> {
                             }
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const LandingPage(),
+                                builder: (context) => LandingPage(),
                               ),
                             );
                           },

@@ -245,5 +245,3 @@ class HousesState extends State<Houses> {
     );
   }
 }
-
-

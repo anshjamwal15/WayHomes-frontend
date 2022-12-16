@@ -1,5 +1,7 @@
 import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
+import 'package:dumper/screens/Home/components/fav_houses.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/dummy_data.dart';
@@ -74,9 +76,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
                     text: 'Logout',
                     icon: Icons.logout,
                     onClicked: () async {
-                      final SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      preferences.remove('email');
+                      await LoginService().authSignOut();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -112,15 +112,21 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
-                  ),
+                  name != null
+                      ? Text(
+                          name,
+                          style: const TextStyle(
+                              fontSize: 20, color: Colors.white),
+                        )
+                      : const Text(""),
                   const SizedBox(height: 4),
-                  Text(
-                    email,
-                    style: const TextStyle(fontSize: 10, color: Colors.white),
-                  ),
+                  email != null
+                      ? Text(
+                          email,
+                          style: const TextStyle(
+                              fontSize: 10, color: Colors.white),
+                        )
+                      : const Text(""),
                 ],
               ),
               const Spacer(),
@@ -170,7 +176,7 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const DetailsScreen(),
+          builder: (context) => const FavHouses(),
         ));
         break;
     }

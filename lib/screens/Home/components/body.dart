@@ -4,6 +4,7 @@ import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
 import 'package:dumper/model/category_model.dart';
+import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
@@ -11,30 +12,31 @@ import 'package:dumper/constants/roles_list.dart';
 import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
-  Body({Key key}) : super(key: key);
+  const Body({Key key, this.username, this.email}) : super(key: key);
+  final String username;
+  final String email;
   @override
   _BodyState createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
-  int incomingMessages = 1;
-  String username = '';
-  String email = '';
+  int incomingMessages;
   List<CategoryModel> categoriesList;
-
+  String role;
   @override
   void initState() {
-    HelperFunctions.getUserNameSharedPreference().then((value) => {
-          setState(() {
-            username = value;
-          })
-        });
-    HelperFunctions.getUserEmailSharedPreference().then((value) => {
-          setState(() {
-            email = value;
-          })
-        });
+    // UserService().getLikedProerpties()
+    HelperFunctions.getUserRoleSharedPreference().then((value) {
+      setState(() {
+        role = value;
+      });
+    });
+    FirebaseMethods().getMessageCount(widget.username).then((value) {
+      setState(() {
+        incomingMessages = value;
+      });
+    });
     PropertyService().getCategories().then((value) {
       setState(() {
         categoriesList = value;
@@ -83,7 +85,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                               },
                             ),
                           ),
-                          Role.getString() == Role.modRole
+                          role == Role.modRole && incomingMessages != null
                               ? Container(
                                   height: 50,
                                   width: 50,
@@ -112,8 +114,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (_) =>
-                                                ChatsScreen(username: username),
+                                            builder: (_) => ChatsScreen(
+                                                username: widget.username),
                                           ),
                                         );
                                       },
@@ -158,7 +160,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           const BottomButtons(),
         ],
       ),
-      drawer: NavigationDrawerWidget(username: username, email: email),
+      drawer: NavigationDrawerWidget(
+        username: widget.username,
+        email: widget.email,
+      ),
     );
   }
 }

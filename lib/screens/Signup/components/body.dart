@@ -8,10 +8,13 @@ import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/main.dart';
 import 'package:dumper/services/firebase_database.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:twitter_login/twitter_login.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key}) : super(key: key);
@@ -134,7 +137,8 @@ class _BodyState extends State<Body> {
                         .signUp(username, email, password, "standard");
                     Map<String, String> userInfoMapFirebase = {
                       "name": username,
-                      "email": email
+                      "email": email,
+                      "role": "ROLE_USER"
                     };
                     databaseMethods.uploadUserInfo(userInfoMapFirebase);
                     HelperFunctions.saveUserEmailSharedPreference(email);
@@ -235,17 +239,30 @@ class _BodyState extends State<Body> {
                 ),
                 SocialIcon(
                   iconSrc: "assets/icons/twitter.svg",
-                  press: () {},
+                  press: () async {
+                    final authResult = await LoginService().singInWithTwitter();
+                    if (authResult.status == TwitterLoginStatus.loggedIn) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                LandingPage(loginType: "twitter"),
+                          ),
+                          (Route<dynamic> route) => false);
+                    }
+                  },
                 ),
                 SocialIcon(
                   iconSrc: "assets/icons/google-plus.svg",
                   press: () async {
-                    await FirebaseMethods().signInWithGoogle();
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => const LandingPage()),
-                      (Route<dynamic> route) => false,
-                    );
+                    final User user = await LoginService().signInWithGoogle();
+                    if (user != null) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                LandingPage(loginType: "google")),
+                        (Route<dynamic> route) => false,
+                      );
+                    }
                   },
                 )
               ],

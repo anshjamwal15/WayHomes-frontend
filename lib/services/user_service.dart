@@ -5,8 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:dumper/model/profile_model.dart';
 
 class UserService {
+  // Validation
+  Future getValidation() async {
+    return await HelperFunctions.getUserNameSharedPreference();
+  }
+
   // Sign-Up
-  Future<String> signUp(
+  Future<Map<String, dynamic>> signUp(
       String username, String email, String password, String type) async {
     final response = await http.post(
       Uri.parse('$SERVER_IP/api/auth/signup'),
@@ -22,10 +27,13 @@ class UserService {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+    // if (type == "google" || type == "twitter" || type == "facebook") {
+    //   HelperFunctions.saveUserInfo(json.decode(response.body));
+    // }
     if (response.statusCode == 200) {
-      return response.body;
+      return json.decode(response.body);
     }
-    return "Failed to Sign-up";
+    return json.decode(response.body);
   }
 
   // Log-In
@@ -85,5 +93,17 @@ class UserService {
       return Profile.fromJson(jsonDecode(response.body));
     }
     throw Exception('Failed to fetch user');
+  }
+
+  // Get Liked Properties
+  Future<String> getLikedProerpties(String id) async {
+    final Uri url = Uri.parse("$SERVER_IP/api/auth/user/likedproperties/$id");
+    final response =
+        await http.get(url, headers: {"ContentType": "application/json"});
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      return json.decode(response.body);
+    }
   }
 }

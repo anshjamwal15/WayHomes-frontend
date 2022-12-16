@@ -4,6 +4,7 @@ import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,32 +20,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    getValidation().whenComplete(() async {
-      Timer(
-        const Duration(seconds: 2),
-        () => username == null
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              )
-            : Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LandingPage(),
-                ),
+    UserService().getValidation().then((value) {
+      setState(() {
+        username = value;
+      });
+    });
+    Timer(
+      const Duration(seconds: 2),
+      () => username == null
+          ? Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LoginScreen(),
               ),
-      );
-    });
+            )
+          : Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LandingPage(),
+              ),
+            ),
+    );
     super.initState();
-  }
-
-  Future getValidation() async {
-    String name = await HelperFunctions.getUserNameSharedPreference();
-    setState(() {
-      username = name;
-    });
   }
 
   @override
@@ -57,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Text(
-                "Welcome To Dumper",
+                "Welcome To Way Homes",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               SizedBox(height: size.height * 0.03),

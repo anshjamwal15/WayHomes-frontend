@@ -1,15 +1,15 @@
+import 'dart:async';
+
 import 'package:dumper/Screens/Home/components/body.dart';
 import 'package:dumper/components/loading_circle.dart';
-import 'package:dumper/model/property_model.dart';
 import 'package:dumper/services/helper_functions.dart';
-import 'package:dumper/services/property_service.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key key}) : super(key: key);
-
+  const LandingPage({Key key, this.loginType}) : super(key: key);
+  final String loginType;
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -17,20 +17,42 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   bool _loading = true;
   User user = FirebaseAuth.instance.currentUser;
+  String username;
+  String email;
   @override
   void initState() {
     if (user != null) {
       HelperFunctions.saveUserEmailSharedPreference(user.email);
       HelperFunctions.saveUserNameSharedPreference(user.displayName);
-      UserService()
-          .signUp(user.displayName, user.email, "no-password", "google");
+      if (widget.loginType != null && widget.loginType == "google") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
+      }
+      if (widget.loginType != null && widget.loginType == "twitter") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
+      }
+      if (widget.loginType != null && widget.loginType == "facebook") {
+        UserService().signUp(
+            user.displayName, user.email, "no-password", widget.loginType);
+      }
     }
-    super.initState();
+    HelperFunctions.getUserNameSharedPreference().then((value) {
+      setState(() {
+        username = value;
+      });
+    });
+    HelperFunctions.getUserEmailSharedPreference().then((value) {
+      setState(() {
+        email = value;
+      });
+    });
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _loading = false;
       });
     });
+    super.initState();
   }
 
   @override
@@ -41,7 +63,7 @@ class _LandingPageState extends State<LandingPage> {
           : Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Body(),
+                Body(username: username, email: email),
               ],
             ),
     );
