@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class ChatDetailPage extends StatefulWidget {
   final String chatRoomId;
   final String username;
+
   const ChatDetailPage({Key key, this.chatRoomId, this.username})
       : super(key: key);
 

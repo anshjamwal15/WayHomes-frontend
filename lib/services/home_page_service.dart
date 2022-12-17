@@ -17,5 +17,4 @@ class HomePageService {
     }
     return false;
   }
-
 }

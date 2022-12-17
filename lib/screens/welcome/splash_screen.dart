@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
-import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

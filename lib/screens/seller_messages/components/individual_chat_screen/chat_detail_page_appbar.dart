@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class ChatDetailPageAppBar extends StatefulWidget
     implements PreferredSizeWidget {
   final String username;
+
   const ChatDetailPageAppBar({Key key, this.username}) : super(key: key);
 
   @override

@@ -3,18 +3,20 @@ import 'package:dumper/Screens/Home/components/bottom_buttons.dart';
 import 'package:dumper/Screens/Home/components/houses.dart';
 import 'package:dumper/Screens/seller_messages/chats_screen.dart';
 import 'package:dumper/components/navigation_drawer_widget.dart';
+import 'package:dumper/constants/roles_list.dart';
 import 'package:dumper/model/category_model.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
-import 'package:dumper/constants/roles_list.dart';
+
 import '../../../constants/constants.dart';
 
 class Body extends StatefulWidget {
   const Body({Key key, this.username, this.email}) : super(key: key);
   final String username;
   final String email;
+
   @override
   _BodyState createState() => _BodyState();
 }
@@ -24,6 +26,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
   int incomingMessages;
   List<CategoryModel> categoriesList;
   String role;
+
   @override
   void initState() {
     // UserService().getLikedProerpties()
@@ -157,7 +160,9 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                   : const CircularProgressIndicator(),
             ],
           ),
-          const BottomButtons(),
+          role == Role.modRole
+              ? const BottomButtons()
+              : const Opacity(opacity: 0.1),
         ],
       ),
       drawer: NavigationDrawerWidget(

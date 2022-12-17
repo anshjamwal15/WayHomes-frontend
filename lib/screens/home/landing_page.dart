@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 class LandingPage extends StatefulWidget {
   const LandingPage({Key key, this.loginType}) : super(key: key);
   final String loginType;
+
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -19,6 +20,7 @@ class _LandingPageState extends State<LandingPage> {
   User user = FirebaseAuth.instance.currentUser;
   String username;
   String email;
+
   @override
   void initState() {
     if (user != null) {

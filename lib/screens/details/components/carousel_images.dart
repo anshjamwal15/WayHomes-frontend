@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/model/property_model.dart';

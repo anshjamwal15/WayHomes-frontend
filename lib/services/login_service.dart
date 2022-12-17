@@ -8,6 +8,7 @@ import 'package:twitter_login/twitter_login.dart';
 class LoginService {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
+
   // Google Sign-in
   Future<User> signInWithGoogle() async {
     try {

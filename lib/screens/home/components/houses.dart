@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 class Houses extends StatefulWidget {
   Houses({Key key, this.categoriesList}) : super(key: key);
   List<CategoryModel> categoriesList;
+
   @override
   HousesState createState() => HousesState();
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:dumper/model/fav_house_model.dart';
 
 PropertyModel propertyModelFromJson(String str) =>
@@ -143,9 +144,9 @@ class Content {
     List<PropertyImage> imageList = [];
     for (int i = 0; i < data.propertyImages.length; i++) {
       PropertyImage propertyImage = PropertyImage();
-      propertyImage.name =  data.propertyImages[i].name;
-      propertyImage.path =  data.propertyImages[i].path;
-      propertyImage.contentType =  data.propertyImages[i].contentType;
+      propertyImage.name = data.propertyImages[i].name;
+      propertyImage.path = data.propertyImages[i].path;
+      propertyImage.contentType = data.propertyImages[i].contentType;
       imageList.add(propertyImage);
     }
     newData.propertyImages = imageList;

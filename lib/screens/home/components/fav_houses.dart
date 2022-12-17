@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 class FavHouses extends StatefulWidget {
   const FavHouses({Key key}) : super(key: key);
+
   @override
   FavHousesState createState() => FavHousesState();
 }
@@ -18,6 +19,7 @@ class FavHousesState extends State<FavHouses> {
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
 
   Future<List<FavHouseModel>> propertyFuture;
+
   Future<List<FavHouseModel>> getProperties() async {
     final email = await HelperFunctions.getUserEmailSharedPreference();
     Uri url =

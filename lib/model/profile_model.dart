@@ -20,20 +20,20 @@ class Profile {
   List<Role> roles;
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    username: json["username"],
-    roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
-  );
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        email: json["email"],
+        username: json["username"],
+        roles: List<Role>.from(json["roles"].map((x) => Role.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "firstName": firstName,
-    "lastName": lastName,
-    "email": email,
-    "username": username,
-    "roles": List<dynamic>.from(roles.map((x) => x.toJson())),
-  };
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "username": username,
+        "roles": List<dynamic>.from(roles.map((x) => x.toJson())),
+      };
 }
 
 class Role {
@@ -44,10 +44,10 @@ class Role {
   String name;
 
   factory Role.fromJson(Map<String, dynamic> json) => Role(
-    name: json["name"],
-  );
+        name: json["name"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-  };
+        "name": name,
+      };
 }

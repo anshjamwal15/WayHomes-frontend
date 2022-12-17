@@ -1,15 +1,12 @@
-import 'dart:convert';
-
 import 'package:dumper/Screens/Home/landing_page.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
 import 'package:dumper/Screens/Signup/components/social_icon.dart';
 import 'package:dumper/Screens/Welcome/components/Background.dart';
 import 'package:dumper/components/text_field_container.dart';
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/main.dart';
 import 'package:dumper/services/firebase_database.dart';
-import 'package:dumper/services/login_service.dart';
 import 'package:dumper/services/helper_functions.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:dumper/services/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

@@ -4,8 +4,9 @@ import 'package:dumper/constants/constants.dart';
 import 'package:flutter/material.dart';
 
 class ChatsScreen extends StatefulWidget {
-  ChatsScreen({Key key,this.username}) : super(key: key);
+  ChatsScreen({Key key, this.username}) : super(key: key);
   String username;
+
   @override
   _ChatsScreenState createState() => _ChatsScreenState();
 }

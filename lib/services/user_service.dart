@@ -1,8 +1,9 @@
 import 'dart:convert';
+
 import 'package:dumper/main.dart';
+import 'package:dumper/model/profile_model.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:http/http.dart' as http;
-import 'package:dumper/model/profile_model.dart';
 
 class UserService {
   // Validation

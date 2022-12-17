@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/services/firebase_database.dart';
 import 'package:flutter/material.dart';
+
 import 'chat_card.dart';
 
 class Body extends StatefulWidget {
-  Body({Key key,this.username}) : super(key: key);
+  Body({Key key, this.username}) : super(key: key);
   String username;
+
   @override
   _BodyState createState() => _BodyState();
 }
@@ -14,6 +16,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool addNew = false;
   Stream<QuerySnapshot> chatRooms;
+
   @override
   void initState() {
     chatRooms = FirebaseMethods().getUserChats(widget.username);
@@ -67,7 +70,8 @@ class _BodyState extends State<Body> {
                       // var data = snapshot.data.docs[index].data()["users"].
                       return ChatCard(
                         username: widget.username,
-                        chatroomId: snapshot.data.docs[index].data()["chatroomId"],
+                        chatroomId:
+                            snapshot.data.docs[index].data()["chatroomId"],
                       );
                     }),
               );

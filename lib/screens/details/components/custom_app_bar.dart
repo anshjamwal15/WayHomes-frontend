@@ -1,5 +1,4 @@
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/services/home_page_service.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatefulWidget {
@@ -14,6 +13,7 @@ class CustomAppBar extends StatefulWidget {
 class _CustomAppBarState extends State<CustomAppBar> {
   bool fav;
   int id;
+
   @override
   void initState() {
     fav = widget.isFav;

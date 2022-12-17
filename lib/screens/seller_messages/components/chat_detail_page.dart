@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/send_menu_items.dart';
-import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/chat_detail_page_appbar.dart';
 import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/chat_bubble.dart';
+import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/chat_detail_page_appbar.dart';
+import 'package:dumper/Screens/seller_messages/components/individual_chat_screen/send_menu_items.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/constants/utils.dart';
 import 'package:dumper/services/firebase_database.dart';
@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 class ChatDetailPage extends StatefulWidget {
   final String chatRoomId;
   final String username;
+
   const ChatDetailPage({Key key, this.chatRoomId, this.username})
       : super(key: key);
 

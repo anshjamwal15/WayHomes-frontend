@@ -1,12 +1,10 @@
-import 'package:dumper/Screens/Details/details_screen.dart';
 import 'package:dumper/Screens/Login/login_screen.dart';
-import 'package:dumper/screens/Home/components/fav_houses.dart';
-import 'package:dumper/services/login_service.dart';
 import 'package:dumper/Screens/Profile/edit_profile.dart';
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/data/dummy_data.dart';
+import 'package:dumper/screens/Home/components/fav_houses.dart';
+import 'package:dumper/services/login_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class NavigationDrawerWidget extends StatefulWidget {
@@ -14,6 +12,7 @@ class NavigationDrawerWidget extends StatefulWidget {
       : super(key: key);
   String username;
   String email;
+
   @override
   _NavigationDrawerWidget createState() => _NavigationDrawerWidget();
 }
@@ -170,9 +169,9 @@ class _NavigationDrawerWidget extends State<NavigationDrawerWidget> {
 
     switch (index) {
       case 0:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const DetailsScreen(),
-        ));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //   builder: (context) => const DetailsScreen(),
+        // ));
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
