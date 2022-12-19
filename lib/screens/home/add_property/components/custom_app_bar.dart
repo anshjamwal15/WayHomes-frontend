@@ -1,16 +1,19 @@
+
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
+
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key key, this.isFav, this.id}) : super(key: key);
-  final int id;
-  final bool isFav;
+  const CustomAppBar({Key key}) : super(key: key);
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
+
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +47,24 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 ),
                 child: const Icon(
                   Icons.arrow_back_rounded,
+                  color: kPrimaryColor,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                await HelperFunctions.getImage();
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  color: white,
+                  border: Border.all(color: white.withOpacity(0.4)),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Icon(
+                  Icons.add_a_photo,
                   color: kPrimaryColor,
                 ),
               ),

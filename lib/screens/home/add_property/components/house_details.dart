@@ -18,250 +18,119 @@ class _HouseDetailsState extends State<HouseDetails> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: FutureBuilder<Content>(
-        builder: (context, snapshot) {
-          return ListView(
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: appPadding,
-                  left: appPadding,
-                  right: appPadding,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: const TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Enter a search term',
-                            ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter sqFeet',
                           ),
                         ),
-                        // Text(
-                        //   // '\₹${widget.houses.price.toString()}',
-                        //   '5000',
-                        //   style: TextStyle(
-                        //     fontSize: 28,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
                       ],
                     ),
-                    // TextFormField(
-                    //   decoration: const InputDecoration(
-                    //     border: UnderlineInputBorder(),
-                    //     labelText: 'Enter your username',
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter bedrooms',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(
-                  left: appPadding,
-                  bottom: appPadding,
-                ),
-                child: Text(
-                  'House information',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter bathrooms',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter garages',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Enter price',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const SizedBox(
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Add Tags',
                   ),
                 ),
               ),
+              const SizedBox(height: 20),
               SizedBox(
-                height: 130,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  physics: const BouncingScrollPhysics(),
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: appPadding,
-                        bottom: appPadding,
-                      ),
-                      child: Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: black.withOpacity(0.4),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              "widget.houses.sqFeet.toString()",
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Square foot',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: appPadding,
-                        bottom: appPadding,
-                      ),
-                      child: Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: black.withOpacity(0.4),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'widget.houses.bedrooms.toString()',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Bedrooms',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: appPadding,
-                        bottom: appPadding,
-                      ),
-                      child: Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: black.withOpacity(0.4),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'widget.houses.bathrooms.toString()',
-                              style: const TextStyle(
-                                color: black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Bathrooms',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: appPadding,
-                        bottom: appPadding,
-                      ),
-                      child: Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          color: white,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                            color: black.withOpacity(0.4),
-                          ),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
-                              'widget.houses.garages.toString()',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Garages',
-                              style: TextStyle(
-                                color: black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: appPadding,
-                  right: appPadding,
-                  bottom: appPadding * 4,
-                ),
-                child: Text(
-                  'widget.houses.description',
-                  style: TextStyle(
-                    color: black.withOpacity(0.4),
-                    height: 1.5,
+                child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 3,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter description',
                   ),
                 ),
               ),
             ],
-          );
-        },
+          ),
+        ),
       ),
     );
   }

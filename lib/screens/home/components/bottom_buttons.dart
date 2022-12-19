@@ -12,8 +12,7 @@ class BottomButtons extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const DetailsScreen()),
+          MaterialPageRoute(builder: (context) => const DetailsScreen()),
         );
       },
       child: Padding(
@@ -44,7 +43,7 @@ class BottomButtons extends StatelessWidget {
                 ),
               ),
               Text(
-                'Add New',
+                'Add Post',
                 style: TextStyle(
                   color: white,
                   fontSize: 20,

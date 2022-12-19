@@ -11,21 +11,19 @@ class CarouselImages extends StatefulWidget {
 
 class _CarouselImagesState extends State<CarouselImages> {
   List<dynamic> data = [
-    'https://is1-3.housingcdn.com/4f2250e8/41114616c8d9ff3cd729250bccb6ecf0/v3/large/godrej_nest-sector_150-noida-godrej_properties_ltd.jpg'
+    'assets/images/input.png'
   ];
-
   List<dynamic> imgs = [];
 
   int _current = 0;
 
   showImage(String image) {
-    return Image.network(image);
+    return Image.asset(image);
   }
 
   @override
   void initState() {
     imgs = data.map((e) => showImage(e)).toList();
-    // imgs = widget.house.propertyImages.map((e) => showImage(e.path)).toList();
     super.initState();
   }
 
