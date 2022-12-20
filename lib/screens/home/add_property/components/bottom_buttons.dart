@@ -1,4 +1,5 @@
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/screens/home/add_property/components/house_details.dart';
 import 'package:flutter/material.dart';
 
 class BottomButtons extends StatefulWidget {
@@ -18,7 +19,8 @@ class _BottomButtonsState extends State<BottomButtons> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+      },
       child: Padding(
         padding: const EdgeInsets.only(bottom: appPadding),
         child: Row(
@@ -83,10 +85,3 @@ class _BottomButtonsState extends State<BottomButtons> {
   }
 }
 
-getChatRoomId(String a, String b) {
-  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-    return "$b\_$a";
-  } else {
-    return "$a\_$b";
-  }
-}

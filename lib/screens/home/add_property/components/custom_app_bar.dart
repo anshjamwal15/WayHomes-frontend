@@ -1,18 +1,16 @@
-
 import 'package:dumper/constants/constants.dart';
 import 'package:dumper/services/helper_functions.dart';
 import 'package:flutter/material.dart';
 
-
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({Key key}) : super(key: key);
-
+  const CustomAppBar({Key key, this.imgList}) : super(key: key);
+  final Function(List<String>) imgList;
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-
+  List<String> imgList;
 
   @override
   void initState() {
@@ -52,8 +50,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
               ),
             ),
             GestureDetector(
-              onTap: () async {
-                await HelperFunctions.getImage();
+              onTap: () {
+                HelperFunctions.getImage().then((value) {
+                  if(value.isNotEmpty) {
+                    widget.imgList(value);
+                  }
+                });
               },
               child: Container(
                 height: 50,

@@ -1,22 +1,46 @@
 import 'package:dumper/constants/constants.dart';
-import 'package:dumper/model/property_model.dart';
+import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
 
 class HouseDetails extends StatefulWidget {
-  const HouseDetails({Key key}) : super(key: key);
-
+  HouseDetails({Key key, this.imgList}) : super(key: key);
+  List<String> imgList;
   @override
   _HouseDetailsState createState() => _HouseDetailsState();
 }
 
 class _HouseDetailsState extends State<HouseDetails> {
+  final sqFeetController = TextEditingController();
+  final bedroomsController = TextEditingController();
+  final bathroomsController = TextEditingController();
+  final garagesController = TextEditingController();
+  final priceController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final addressController = TextEditingController();
+  final tagsController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
   }
 
   @override
+  void dispose() {
+    sqFeetController.dispose();
+    bedroomsController.dispose();
+    bathroomsController.dispose();
+    garagesController.dispose();
+    priceController.dispose();
+    descriptionController.dispose();
+    addressController.dispose();
+    tagsController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bool showBottomBtn = MediaQuery.of(context).viewInsets.bottom == 0.0;
+    Size size = MediaQuery.of(context).size;
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
@@ -32,6 +56,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: sqFeetController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Enter sqFeet',
@@ -45,6 +70,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: bedroomsController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Enter bedrooms',
@@ -64,6 +90,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: bathroomsController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Enter bathrooms',
@@ -77,6 +104,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: garagesController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Enter garages',
@@ -96,6 +124,7 @@ class _HouseDetailsState extends State<HouseDetails> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          controller: priceController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Enter price',
@@ -107,25 +136,120 @@ class _HouseDetailsState extends State<HouseDetails> {
                 ],
               ),
               const SizedBox(height: 20),
-              const SizedBox(
-                child: TextField(
-                  keyboardType: TextInputType.multiline,
+              SizedBox(
+                child: TextFormField(
+                  controller: tagsController,
                   maxLines: 1,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Add Tags',
+                  decoration: const InputDecoration(
+                    border: UnderlineInputBorder(),
+                    labelText: '#tags',
                   ),
                 ),
               ),
               const SizedBox(height: 20),
               SizedBox(
                 child: TextFormField(
+                  controller: addressController,
+                  maxLines: 1,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Add address',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                child: TextFormField(
+                  controller: descriptionController,
                   keyboardType: TextInputType.multiline,
                   maxLines: 3,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter description',
                   ),
+                ),
+              ),
+              // Buttons Widget Started
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: appPadding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: size.width * 0.34,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: kPrimaryColor,
+                            borderRadius: BorderRadius.circular(30),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: darkBlue.withOpacity(0.6),
+                                  offset: const Offset(0, 10),
+                                  blurRadius: 10)
+                            ]),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              'CANCEL',
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Map<String, String> propertyData = {
+                          'sqFeet': sqFeetController.text,
+                          'bedrooms': bedroomsController.text,
+                          'bathrooms': bathroomsController.text,
+                          'garages': garagesController.text,
+                          'price': priceController.text,
+                          'description': descriptionController.text,
+                          'address': addressController.text,
+                          'tags': tagsController.text
+                        };
+                        PropertyService().uploadProperty(propertyData, widget.imgList);
+                      },
+                      child: Container(
+                        width: size.width * 0.34,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: kPrimaryColor,
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: [
+                            BoxShadow(
+                                color: darkBlue.withOpacity(0.6),
+                                offset: const Offset(0, 10),
+                                blurRadius: 10)
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              'SAVE',
+                              style: TextStyle(
+                                color: white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

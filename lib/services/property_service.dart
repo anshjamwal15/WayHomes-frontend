@@ -1,3 +1,7 @@
+import 'package:dumper/services/helper_functions.dart';
+import 'package:http_parser/http_parser.dart';
+import 'dart:io';
+
 import 'package:dumper/main.dart';
 import 'package:dumper/model/category_model.dart';
 import 'package:http/http.dart' as http;
@@ -12,5 +16,25 @@ class PropertyService {
       return result;
     }
     return <CategoryModel>[];
+  }
+
+  Future uploadProperty(Map<String, String> data, List<String> imgList) async {
+    int userId = await HelperFunctions.getUserIdSharedPreference();
+    Uri url = Uri.parse("$SERVER_IP/api/auth/property/createproperty");
+    var requestData = http.MultipartRequest('POST', url);
+    requestData.fields['sqFeet'] = data['sqFeet'];
+    requestData.fields['bedrooms'] = data['bedrooms'];
+    requestData.fields['bathrooms'] = data['bathrooms'];
+    requestData.fields['garages'] = data['garages'];
+    requestData.fields['price'] = data['price'];
+    requestData.fields['description'] = data['description'];
+    requestData.fields['address'] = data['address'];
+    requestData.fields['userId'] = userId.toString();
+    requestData.fields['tags'] = data['tags'];
+    for(int i = 0; i < imgList.length; i++) {
+      final http.MultipartFile newImage = await http.MultipartFile.fromPath('files', imgList[i]);
+      requestData.files.add(newImage);
+    }
+    requestData.send();
   }
 }
