@@ -1,4 +1,5 @@
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:dumper/components/loading_circle.dart';
 import 'package:dumper/constants/constants.dart';
 import 'dart:io';
 import 'package:dumper/screens/Home/add_property/components/custom_app_bar.dart';
@@ -17,6 +18,7 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  bool showLoading = false;
   int _current = 0;
   List<dynamic> data = ['assets/images/input.png'];
   List<dynamic> imgs = [];
@@ -38,44 +40,59 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // final bool showBottomBtn = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          Column(
-            children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.265,
-                    child: Carousel(
-                      images: imgs,
-                      dotSize: 5,
-                      dotBgColor: Colors.transparent,
-                      dotIncreasedColor: kPrimaryColor,
-                      dotColor: white,
-                      autoplay: false,
-                      onImageChange: (index, reason) {
+          showLoading
+              ? Stack(
+                  alignment: Alignment.center,
+                  children: const [
+                    Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                )
+              : Column(
+                  children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: size.height * 0.265,
+                          child: Carousel(
+                            images: imgs,
+                            dotSize: 5,
+                            dotBgColor: Colors.transparent,
+                            dotIncreasedColor: kPrimaryColor,
+                            dotColor: white,
+                            autoplay: false,
+                            onImageChange: (index, reason) {
+                              setState(() {
+                                _current = index;
+                              });
+                            },
+                          ),
+                        ),
+                        CustomAppBar(
+                          imgList: (p0) {
+                            setState(() {
+                              imgs = p0.map((e) => showImage(e)).toList();
+                              imgList = p0;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    HouseDetails(
+                      imgList: imgList,
+                      showLoading: (p0) {
                         setState(() {
-                          _current = index;
+                          showLoading = p0;
                         });
                       },
                     ),
-                  ),
-                  CustomAppBar(
-                    imgList: (p0) {
-                      setState(() {
-                        imgs = p0.map((e) => showImage(e)).toList();
-                        imgList = p0;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              HouseDetails(imgList: imgList),
-            ],
-          ),
+                  ],
+                ),
         ],
       ),
     );

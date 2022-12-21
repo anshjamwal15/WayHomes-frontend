@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:dumper/constants/constants.dart';
+import 'package:dumper/screens/home/landing_page.dart';
 import 'package:dumper/services/property_service.dart';
 import 'package:flutter/material.dart';
 
 class HouseDetails extends StatefulWidget {
-  HouseDetails({Key key, this.imgList}) : super(key: key);
+  HouseDetails({Key key, this.imgList, this.showLoading}) : super(key: key);
   List<String> imgList;
+  Function(bool) showLoading;
   @override
   _HouseDetailsState createState() => _HouseDetailsState();
 }
@@ -26,6 +30,7 @@ class _HouseDetailsState extends State<HouseDetails> {
 
   @override
   void dispose() {
+    // Connectivity.onConnectivityChanged.cancel();
     sqFeetController.dispose();
     bedroomsController.dispose();
     bathroomsController.dispose();
@@ -36,11 +41,15 @@ class _HouseDetailsState extends State<HouseDetails> {
     tagsController.dispose();
     super.dispose();
   }
-
+  void goBack() {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => const LandingPage(),
+    ));
+  }
   @override
   Widget build(BuildContext context) {
-    final bool showBottomBtn = MediaQuery.of(context).viewInsets.bottom == 0.0;
     Size size = MediaQuery.of(context).size;
+    // final bool showBottomBtn = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Expanded(
       child: SingleChildScrollView(
         child: Padding(
@@ -219,7 +228,21 @@ class _HouseDetailsState extends State<HouseDetails> {
                           'address': addressController.text,
                           'tags': tagsController.text
                         };
-                        PropertyService().uploadProperty(propertyData, widget.imgList);
+                        widget.showLoading(true);
+                        PropertyService()
+                            .uploadProperty(
+                          propertyData,
+                          widget.imgList,
+                        )
+                            .then((value) {
+                          if (value == "success") {
+                            // TODO Solve this error :- Consider canceling any active work during "dispose" or using the "mounted" getter to determine if the State is still active.
+                            widget.showLoading(false);
+                            // goBack();
+                          } else {
+                            widget.showLoading(false);
+                          }
+                        });
                       },
                       child: Container(
                         width: size.width * 0.34,

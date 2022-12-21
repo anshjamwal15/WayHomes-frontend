@@ -47,7 +47,7 @@ class Body extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: kPrimaryColor,
+                    backgroundColor: kPrimaryColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
@@ -65,10 +65,6 @@ class Body extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(29),
                 child: ElevatedButton(
-                  child: const Text(
-                    "SIGN UP",
-                    style: TextStyle(color: kPrimaryColor),
-                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
@@ -80,7 +76,7 @@ class Body extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: kPrimaryLightColor,
+                    backgroundColor: kPrimaryLightColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 20),
                     textStyle: const TextStyle(
@@ -88,6 +84,10 @@ class Body extends StatelessWidget {
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
+                  ),
+                  child: const Text(
+                    "SIGN UP",
+                    style: TextStyle(color: kPrimaryColor),
                   ),
                 ),
               ),
